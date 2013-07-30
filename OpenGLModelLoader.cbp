@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="OpenGLModelLoader" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\OpenGLModelLoader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lsfml-system-s" />
+					<Add option="-lsfml-window-s" />
+					<Add option="-lsfml-graphics-s" />
+					<Add option="-lopengl32" />
+					<Add option="-lglu32" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\OpenGLModelLoader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lsfml-system-s" />
+					<Add option="-lsfml-window-s" />
+					<Add option="-lsfml-graphics-s" />
+					<Add option="-lopengl32" />
+					<Add option="-lglu32" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Linker>
+			<Add option="-lsfml-graphics-s" />
+			<Add option="-lsfml-window-s" />
+			<Add option="-lsfml-system-s" />
+		</Linker>
+		<Unit filename="sources\Animation.cpp" />
+		<Unit filename="sources\Animation.hpp" />
+		<Unit filename="sources\Camera.cpp" />
+		<Unit filename="sources\Camera.hpp" />
+		<Unit filename="sources\FlyingCamera.cpp" />
+		<Unit filename="sources\FlyingCamera.hpp" />
+		<Unit filename="sources\Lumiere.cpp" />
+		<Unit filename="sources\Lumiere.hpp" />
+		<Unit filename="sources\Map.cpp" />
+		<Unit filename="sources\Map.hpp" />
+		<Unit filename="sources\Materiel.cpp" />
+		<Unit filename="sources\Materiel.hpp" />
+		<Unit filename="sources\Model.cpp" />
+		<Unit filename="sources\Model.hpp" />
+		<Unit filename="sources\ModelLoaderCamera.cpp" />
+		<Unit filename="sources\ModelLoaderCamera.hpp" />
+		<Unit filename="sources\Objet3D.cpp" />
+		<Unit filename="sources\Objet3D.hpp" />
+		<Unit filename="sources\Point3D.cpp" />
+		<Unit filename="sources\Point3D.hpp" />
+		<Unit filename="sources\Surface.cpp" />
+		<Unit filename="sources\Surface.hpp" />
+		<Unit filename="sources\Tools.cpp" />
+		<Unit filename="sources\Tools.hpp" />
+		<Unit filename="sources\main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

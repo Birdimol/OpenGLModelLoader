@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="sources\Animation.hpp" open="1" top="0" tabpos="15">
+		<Cursor position="254" topLine="1" />
+	</File>
+	<File name="sources\Camera.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="1484" topLine="0" />
+	</File>
+	<File name="sources\Camera.hpp" open="1" top="0" tabpos="9">
+		<Cursor position="842" topLine="13" />
+	</File>
+	<File name="sources\FlyingCamera.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="3058" topLine="102" />
+	</File>
+	<File name="sources\Lumiere.cpp" open="0" top="0" tabpos="13">
+		<Cursor position="221" topLine="0" />
+	</File>
+	<File name="sources\Lumiere.hpp" open="0" top="0" tabpos="12">
+		<Cursor position="377" topLine="0" />
+	</File>
+	<File name="sources\Map.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="63" topLine="0" />
+	</File>
+	<File name="sources\Map.hpp" open="1" top="0" tabpos="8">
+		<Cursor position="301" topLine="0" />
+	</File>
+	<File name="sources\Materiel.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="363" topLine="41" />
+	</File>
+	<File name="sources\Materiel.hpp" open="0" top="0" tabpos="3">
+		<Cursor position="522" topLine="0" />
+	</File>
+	<File name="sources\Model.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="6902" topLine="204" />
+	</File>
+	<File name="sources\Model.hpp" open="1" top="0" tabpos="10">
+		<Cursor position="616" topLine="10" />
+	</File>
+	<File name="sources\Objet3D.cpp" open="1" top="0" tabpos="13">
+		<Cursor position="342" topLine="48" />
+	</File>
+	<File name="sources\Objet3D.hpp" open="1" top="0" tabpos="14">
+		<Cursor position="545" topLine="3" />
+	</File>
+	<File name="sources\Point3D.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="2279" topLine="89" />
+	</File>
+	<File name="sources\Point3D.hpp" open="1" top="0" tabpos="1">
+		<Cursor position="2282" topLine="59" />
+	</File>
+	<File name="sources\Surface.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1695" topLine="59" />
+	</File>
+	<File name="sources\Surface.hpp" open="1" top="0" tabpos="4">
+		<Cursor position="358" topLine="13" />
+	</File>
+	<File name="sources\Tools.cpp" open="1" top="1" tabpos="17">
+		<Cursor position="1939" topLine="60" />
+	</File>
+	<File name="sources\Tools.hpp" open="1" top="0" tabpos="16">
+		<Cursor position="602" topLine="8" />
+	</File>
+	<File name="sources\main.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1281" topLine="41" />
+	</File>
+</CodeBlocks_layout_file>

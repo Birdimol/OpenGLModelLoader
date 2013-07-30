@@ -1,0 +1,56 @@
+# Blender MTL File: ''
+# Material Count: 5
+newmtl Brique_briques.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\briques.jpg
+
+
+newmtl herbe
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\\herbe.png
+
+
+newmtl herbe_herbe.png
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\herbe.png
+
+
+newmtl noir
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.386357 0.385679 0.397531
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl noir_briques.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.386357 0.385679 0.397531
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\briques.jpg
+
+
