@@ -55,7 +55,6 @@ int main()
 
     Clock.Reset();
     ClockAnimation.Reset();
-    //int frame = 0;
 
     bool lignes = true;
     glColor3ub(255,50,50);
@@ -77,15 +76,6 @@ int main()
     // Start game loop
     while (App.IsOpened())
     {
-        /*frame++;
-        if(Clock.GetElapsedTime() > 1)
-        {*/
-            //cout << frame << endl;
-            //frame = 0;
-
-        //}
-        // Process events
-
         //la lumiere tourne
         lumiere.x = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).x;
         lumiere.z = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).y;
