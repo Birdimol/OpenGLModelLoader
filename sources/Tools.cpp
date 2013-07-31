@@ -91,9 +91,19 @@ vector<int> Tools::SplitSpace(string s)
 string Tools::modelSelectionConsoleMenu()
 {
     string choix;
-    cout << "Enter the model you want to see." << endl;
-    cout << "The model must be located in the modeles directory and must be an obj file." << endl;
-    cout << "> ";
+    cout << endl << "  FacantaEngine 1.a - ModelViewer - 2013 - Favay Thomas" << endl << endl;
+    cout << "  -------------------------" << endl;
+    cout << "  | PageUp to look up     |" << endl;
+    cout << "  | PageDown to look down |" << endl;
+    cout << "  | PavNum8 to go up      |" << endl;
+    cout << "  | PavNum2 to go down    |" << endl;
+    cout << "  | - to take distance    |" << endl;
+    cout << "  | + to go closer        |" << endl;
+    cout << "  | C to reset rotation   |" << endl;
+    cout << "  -------------------------" << endl << endl;
+    cout << "  Enter the model you want to see." << endl;
+    cout << "  The model must be located in the modeles directory and must be an obj file." << endl;
+    cout << "  > ";
     cin >> choix;
 
     string choix_complet = "modeles/"+choix+".obj";
