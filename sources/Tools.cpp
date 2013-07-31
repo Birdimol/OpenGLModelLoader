@@ -7,6 +7,9 @@
 #include <GL/glu.h>
 #include <string>
 #include <vector>
+#include <fstream>
+#include <map>
+
 
 using namespace std;
 
@@ -85,6 +88,81 @@ vector<int> Tools::SplitSpace(string s)
     return ret;
 }
 
+string Tools::modelSelectionConsoleMenu()
+{
+    string choix;
+    cout << "Enter the model you want to see." << endl;
+    cout << "The model must be located in the modeles directory and must be an obj file." << endl;
+    cout << "> ";
+    cin >> choix;
+
+    string choix_complet = "modeles/"+choix+".obj";
+
+    ifstream ifile(choix_complet.c_str());
+    if(ifile)
+    {
+        return choix;
+    }
+    else
+    {
+        cout << "/!\\ Model not found. /!\\ " << endl;
+        return "canard";
+    }
+}
+
+map<string, int> Tools::getConfig()
+{
+    map<string, int> config;
+
+    //default_value
+    config["window_width"] = 600;
+    config["window_height"] = 480;
+    config["fullscreen"] = 0;
+    config["antialiasing"] = 0;
+
+    string line;
+    ifstream myfile ("config/config.ini");
+
+    if (myfile.is_open())
+    {
+        while ( myfile.good() )
+        {
+            getline(myfile,line);
+
+            //if line isn't empty;
+            if(line.size() > 0)
+            {
+                //erasing space in line
+                std::size_t found = line.find_first_of(" ");
+                while(found!=std::string::npos)
+                {
+                    line.erase(line.begin()+found);
+                    found=line.find_first_of(" ");
+                }
+
+                //Ignoring sections and comments
+                if(line.at(0) != ';' && line.at(0) != '[')
+                {
+                    found=line.find_first_of("=");
+                    if(found!=std::string::npos)
+                    {
+                        string arg = line.substr(0,found);
+                        string value = line.substr(found+1);
+                        config[arg] = Tools::StringToInt(value);
+                    }
+                }
+            }
+        }
+        myfile.close();
+    }
+    else
+    {
+        cout << "Fichier de config (config/config.ini) introuvable." << endl;
+    }
+
+    return config;
+}
+
 vector<string> Tools::SplitSlashes(string s)
 {
     //Eclate une chaîne au niveau de ses espaces.
@@ -126,6 +204,11 @@ string Tools::IntToString(int a)
     Convert << a;
     string Nstr = Convert.str();
     return Nstr;
+}
+
+int Tools::StringToInt(string a)
+{
+    return atoi(a.c_str());
 }
 
 

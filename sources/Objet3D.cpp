@@ -80,6 +80,22 @@ void Objet3D::StopAnimation()
     animations[currentAnimation].Stop();
 }
 
+void Objet3D::SetAngle(sf::Vector3f input_angle)
+{
+    for(int a =0; a< (int)animations.size();a++)
+    {
+        animations[a].SetAngle(input_angle);
+    }
+}
+
+void Objet3D::SetAngle(float x, float y, float z)
+{
+    for(int a =0; a< (int)animations.size();a++)
+    {
+        animations[a].SetAngle(x,y,z);
+    }
+}
+
 void Objet3D::Afficher()
 {
     //glPushMatrix();

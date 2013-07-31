@@ -33,6 +33,9 @@ class Tools
     static float DifferenceVecteurs(sf::Vector3f normale, sf::Vector3f lumiere);
     static sf::Vector2f RotationPoint2D(float x, float y, float angle);
     static string IntToString(int a);
+    static int StringToInt(string a);
+    static string modelSelectionConsoleMenu();
+    static map<string, int> getConfig();
 };
 
 #endif

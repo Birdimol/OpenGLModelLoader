@@ -22,6 +22,11 @@ class ModelLoaderCamera : public Camera
 
     void Bouge(sf::Vector3f vecteur);
     void HandleSfmlEvent(sf::Event Event);
+    void handleSfmlRealtimeInput(const sf::Input& Input);
+    void Avance();
+    void Recule();
+    void Monte();
+    void Descend();
 };
 
 #endif

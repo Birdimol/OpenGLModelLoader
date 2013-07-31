@@ -25,10 +25,13 @@ class Animation
     void Play();
     void Play(bool loop_);
     void Stop();
+    void SetAngle(sf::Vector3f input_angle);
+    void SetAngle(float x, float y, float z);
 
     private :
     sf::Clock clock;
     vector<Model> modeles;
+
     float frameDelay;
     bool loop;
     bool playing;

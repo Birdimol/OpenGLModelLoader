@@ -44,3 +44,59 @@ void ModelLoaderCamera::HandleSfmlEvent(sf::Event Event)
        Bouge(sf::Vector3f(0,-2,0));
     }
 }
+
+void ModelLoaderCamera::Avance()
+{
+    position.z -= 1;
+}
+
+void ModelLoaderCamera::Monte()
+{
+    position.y += 0.5;
+}
+
+void ModelLoaderCamera::Descend()
+{
+    position.y -= 0.5;
+}
+
+void ModelLoaderCamera::Recule()
+{
+    position.z += 1;
+}
+
+void ModelLoaderCamera::handleSfmlRealtimeInput(const sf::Input& Input)
+{
+    if (Input.IsKeyDown(sf::Key::Add))
+    {
+       Avance();
+    }
+
+    if (Input.IsKeyDown(sf::Key::Numpad8))
+    {
+       Monte();
+    }
+
+    if (Input.IsKeyDown(sf::Key::Numpad2))
+    {
+       Descend();
+    }
+
+    if (Input.IsKeyDown(sf::Key::Subtract))
+    {
+       Recule();
+    }
+
+    if (Input.IsKeyDown(sf::Key::PageUp))
+    {
+       cible.y += 0.2;
+       position.y += 0.2;
+    }
+
+    if (Input.IsKeyDown(sf::Key::PageDown))
+    {
+       cible.y -= 0.2;
+       position.y -= 0.2;
+    }
+}
+

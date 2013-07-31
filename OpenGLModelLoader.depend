@@ -590,3 +590,200 @@
 	"Animation.hpp"
 	"Objet3D.hpp"
 
+1375267619 source:c:\sfml\projets\facantaengine.git\sources\animation.cpp
+	"Animation.hpp"
+
+1375265476 c:\sfml\projets\facantaengine.git\sources\animation.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	"Model.hpp"
+	"Lumiere.hpp"
+	"Tools.hpp"
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\model.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	"Model.hpp"
+	"Point3D.hpp"
+	"Surface.hpp"
+	"Materiel.hpp"
+	"Lumiere.hpp"
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\point3d.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	"Materiel.hpp"
+	"Lumiere.hpp"
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\materiel.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\lumiere.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	"Materiel.hpp"
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\surface.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	"Point3D.hpp"
+	"Materiel.hpp"
+
+1375264497 c:\sfml\projets\facantaengine.git\sources\tools.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	<iomanip>
+	<string>
+	<sstream>
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\camera.cpp
+	"Camera.hpp"
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\camera.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\flyingcamera.cpp
+	"FlyingCamera.hpp"
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\flyingcamera.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	"Camera.hpp"
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\lumiere.cpp
+	"Lumiere.hpp"
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\map.cpp
+	"Map.hpp"
+
+1375252684 c:\sfml\projets\facantaengine.git\sources\map.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	"Model.hpp"
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\materiel.cpp
+	"Tools.hpp"
+	"Materiel.hpp"
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\model.cpp
+	"Model.hpp"
+	"Surface.hpp"
+	"Point3D.hpp"
+	"Materiel.hpp"
+	"Tools.hpp"
+	"Lumiere.hpp"
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<iostream>
+	<fstream>
+
+1375274201 source:c:\sfml\projets\facantaengine.git\sources\modelloadercamera.cpp
+	"ModelLoaderCamera.hpp"
+
+1375267993 c:\sfml\projets\facantaengine.git\sources\modelloadercamera.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	"Camera.hpp"
+
+1375267619 source:c:\sfml\projets\facantaengine.git\sources\objet3d.cpp
+	"Objet3d.hpp"
+
+1375267538 c:\sfml\projets\facantaengine.git\sources\objet3d.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	"Animation.hpp"
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\point3d.cpp
+	"point3D.hpp"
+	"Tools.hpp"
+
+1375252684 source:c:\sfml\projets\facantaengine.git\sources\surface.cpp
+	"Surface.hpp"
+	"Point3D.hpp"
+	"Materiel.hpp"
+
+1375265157 source:c:\sfml\projets\facantaengine.git\sources\tools.cpp
+	"Tools.hpp"
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	<fstream>
+	<map>
+
+1375274710 source:c:\sfml\projets\facantaengine.git\sources\main.cpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	"Point3D.hpp"
+	"Surface.hpp"
+	"Model.hpp"
+	"Tools.hpp"
+	"Lumiere.hpp"
+	"FlyingCamera.hpp"
+	"ModelLoaderCamera.hpp"
+	"Animation.hpp"
+	"Objet3D.hpp"
+

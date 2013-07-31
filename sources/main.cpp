@@ -21,11 +21,71 @@ using namespace std;
 
 int main()
 {
-    sf::WindowSettings settings(24,8,2 );
-    sf::Window App(sf::VideoMode(800, 600, 32), "SFML OpenGL", sf::Style::Close, settings);
+    string modele3DFile = Tools::modelSelectionConsoleMenu();
+
+    //parametres liés à config.ini
+    map<string, int> config = Tools::getConfig();
+
+    sf::WindowSettings settings(24,8,config["antialiasing"]);
+
+    int windowStyle;
+
+    if(config["fullscreen"] == 1)
+    {
+        windowStyle = sf::Style::Fullscreen;
+    }
+    else
+    {
+        windowStyle = sf::Style::Close;
+    }
+
+    sf::RenderWindow App(sf::VideoMode(config["window_width"], config["window_height"], 32), "SFML OpenGL", windowStyle, settings);
+    //------------------
+
+
+    //MENU-------------------------------------------------------
+
+
+    sf::Image iBoutons;
+    if (!iBoutons.LoadFromFile("images/boutons.png"))
+    {
+        cout << "images/boutons.png introuvable." << endl;
+    }
+    sf::Sprite boutonsRotationModele;
+    boutonsRotationModele.SetImage(iBoutons);
+    boutonsRotationModele.SetX(10);
+    boutonsRotationModele.SetY(10);
+    boutonsRotationModele.SetSubRect(sf::IntRect(0, 0, 158, 32));
+
+    sf::Sprite boutonsRotationLumiere;
+    boutonsRotationLumiere.SetImage(iBoutons);
+    boutonsRotationLumiere.SetX(170);
+    boutonsRotationLumiere.SetY(10);
+    boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 0, 330, 32));
+
+    sf::Sprite menu;
+    menu.SetImage(iBoutons);
+    menu.SetSubRect(sf::IntRect(0, 100, 1024, 150));
+    menu.SetX(0);
+    menu.SetY(0);
+    //------------------------------------------------------------
+
     App.UseVerticalSync(true);
     App.SetFramerateLimit(60);
     App.EnableKeyRepeat(true);
+    App.PreserveOpenGLStates(true);
+
+    sf::Font font;
+    if (!font.LoadFromFile("police/arial.ttf"))
+    {
+        cout << "impossible de charger la police d'ecriture 'police/arial.ttf'." << endl;
+        return 1;
+    }
+
+    sf::String text("FPS : ??", font, 30);
+    text.SetColor(sf::Color(0,0,0));
+    text.SetX(650);
+    text.SetY(10);
 
     // Create a clock for measuring time elapsed
     sf::Clock Clock;
@@ -45,27 +105,29 @@ int main()
     glLoadIdentity();
 
     Lumiere lumiere(0,100,100,120);
-    int angleLumiere = 0;
 
-    Objet3D canard(&lumiere,"duck_step2",1);
+    Objet3D objet3D(&lumiere,modele3DFile,1);
 
-    canard.AddAnimation("duck_step2",&lumiere,48);
+    //objet3D.AddAnimation("duck_step2",&lumiere,48);
 
     glDisable(GL_TEXTURE_2D);
 
     Clock.Reset();
+    int frame = 0;
     ClockAnimation.Reset();
 
-    bool lignes = true;
-    glColor3ub(255,50,50);
+    glColor3ub(0,0,0);
 
     glMatrixMode(GL_MODELVIEW);
 
-    FlyingCamera camera(sf::Vector3f(0,2,3),sf::Vector3f(0,2,2));
+    ModelLoaderCamera camera(sf::Vector3f(0,4,4),sf::Vector3f(0,4,2));
 
     bool rotX = false;
     bool rotY = false;
     bool rotZ = false;
+
+    bool lignes = true;
+    bool lightRotation = false;
 
     float angleX = 0;
     float angleY = 0;
@@ -76,9 +138,20 @@ int main()
     // Start game loop
     while (App.IsOpened())
     {
+        frame++;
+        if(Clock.GetElapsedTime() > 1)
+        {
+            text.SetText("FPS : " + Tools::IntToString(frame));
+            frame = 0;
+            Clock.Reset();
+        }
+
         //la lumiere tourne
-        lumiere.x = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).x;
-        lumiere.z = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).y;
+        if(lightRotation)
+        {
+            lumiere.x = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).x;
+            lumiere.z = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).y;
+        }
 
         sf::Event Event;
 
@@ -87,6 +160,39 @@ int main()
             // Close window : exit
             if (Event.Type == sf::Event::Closed || ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape)))
                 App.Close();
+
+            if (Event.Type == sf::Event::MouseButtonPressed)
+            {
+                if(Input.GetMouseX() > boutonsRotationModele.GetPosition().x && Input.GetMouseX() <  boutonsRotationModele.GetPosition().x+boutonsRotationModele.GetSize().x
+                   && Input.GetMouseY() > boutonsRotationModele.GetPosition().y && Input.GetMouseY() <  boutonsRotationModele.GetPosition().y+boutonsRotationModele.GetSize().y)
+                {
+                    if(!rotY)
+                    {
+                        rotY = true;
+                        boutonsRotationModele.SetSubRect(sf::IntRect(0, 32, 158, 64));
+                    }
+                    else
+                    {
+                        rotY = false;
+                        boutonsRotationModele.SetSubRect(sf::IntRect(0, 0, 158, 32));
+                    }
+                }
+
+                if(Input.GetMouseX() > boutonsRotationLumiere.GetPosition().x && Input.GetMouseX() <  boutonsRotationLumiere.GetPosition().x+boutonsRotationLumiere.GetSize().x
+                   && Input.GetMouseY() > boutonsRotationLumiere.GetPosition().y && Input.GetMouseY() <  boutonsRotationLumiere.GetPosition().y+boutonsRotationLumiere.GetSize().y)
+                {
+                    if(!lightRotation)
+                    {
+                        lightRotation = true;
+                        boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 32, 330, 64));
+                    }
+                    else
+                    {
+                        lightRotation = false;
+                        boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 0, 330, 32));
+                    }
+                }
+            }
 
             if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F1))
             {
@@ -102,72 +208,6 @@ int main()
                 }
             }
 
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F2))
-            {
-                if(!rotX)
-                {
-                    rotX = true;
-                }
-                else
-                {
-                    rotX = false;
-                }
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F3))
-            {
-                if(!rotY)
-                {
-                    rotY = true;
-                }
-                else
-                {
-                    rotY = false;
-                }
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::F4))
-            {
-                if(!rotZ)
-                {
-                    rotZ = true;
-                }
-                else
-                {
-                    rotZ = false;
-                }
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Up))
-            {
-                lumiere.z+=0.2;
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Down))
-            {
-                lumiere.z-=0.2;
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Left))
-            {
-                lumiere.x+=0.2;
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Right))
-            {
-                lumiere.x-=0.2;
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::PageUp))
-            {
-                lumiere.y+=0.2;
-            }
-
-            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::PageDown))
-            {
-                lumiere.y-=0.2;
-            }
-
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::C))
             {
                 angleX = 0;
@@ -177,7 +217,7 @@ int main()
 
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::J))
             {
-                canard.PlayAnimation(1);
+                objet3D.PlayAnimation(1);
             }
         }
 
@@ -192,47 +232,19 @@ int main()
 
         camera.LookAt();
 
-        if(rotX)
-        {
-            angleX += 0.5;
-        }
-
         if(rotY)
         {
             angleY += 0.5;
+            objet3D.SetAngle(angleX,angleY,angleZ);
         }
 
-        if(rotZ)
-        {
-            angleZ += 0.5;
-        }
+        objet3D.Afficher();
 
-        //modele1.SetAngle(angleX,angleY,angleZ);
+        App.Draw(menu);
+        App.Draw(boutonsRotationModele);
+        App.Draw(boutonsRotationLumiere);
+        App.Draw(text);
 
-            //le cube de lumieregl
-            glDisable(GL_TEXTURE_2D);
-            glPointSize( 20 );
-            glBegin(GL_POINTS);
-                glColor3ub(255,255,255);
-                glVertex3f(lumiere.x,lumiere.y,lumiere.z);
-            glEnd();
-            glPointSize( 1 );
-
-
-            /*if(lignes)
-            {
-                cubeAnime[animation].AfficherLignes();
-            }
-            else
-            {
-                cubeAnime[animation].Afficher();
-            }*/
-
-        canard.Afficher();
-
-        //glPopMatrix();
-
-        // Finally, display rendered frame on screen
         App.Display();
     }
     return 0;

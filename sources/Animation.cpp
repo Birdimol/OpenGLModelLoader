@@ -8,6 +8,22 @@ Animation::Animation(string modeleName, Lumiere *lumiere, int frameNumber)
     modify(modeleName,lumiere,frameNumber);
 }
 
+void Animation::SetAngle(sf::Vector3f input_angle)
+{
+    for(int a =0; a< (int)modeles.size();a++)
+    {
+        modeles[a].SetAngle(input_angle);
+    }
+}
+
+void Animation::SetAngle(float x, float y, float z)
+{
+    for(int a =0; a< (int)modeles.size();a++)
+    {
+        modeles[a].SetAngle(x,y,z);
+    }
+}
+
 void Animation::modify(string modeleName, Lumiere *lumiere, int frameNumber)
 {
     vector<Model> temp(frameNumber);
