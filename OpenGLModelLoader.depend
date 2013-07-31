@@ -590,10 +590,10 @@
 	"Animation.hpp"
 	"Objet3D.hpp"
 
-1375267619 source:c:\sfml\projets\facantaengine.git\sources\animation.cpp
+1375275853 source:c:\sfml\projets\facantaengine.git\sources\animation.cpp
 	"Animation.hpp"
 
-1375265476 c:\sfml\projets\facantaengine.git\sources\animation.hpp
+1375275847 c:\sfml\projets\facantaengine.git\sources\animation.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -724,7 +724,7 @@
 	<iostream>
 	<fstream>
 
-1375274201 source:c:\sfml\projets\facantaengine.git\sources\modelloadercamera.cpp
+1375274837 source:c:\sfml\projets\facantaengine.git\sources\modelloadercamera.cpp
 	"ModelLoaderCamera.hpp"
 
 1375267993 c:\sfml\projets\facantaengine.git\sources\modelloadercamera.hpp
@@ -736,10 +736,10 @@
 	<string>
 	"Camera.hpp"
 
-1375267619 source:c:\sfml\projets\facantaengine.git\sources\objet3d.cpp
+1375275890 source:c:\sfml\projets\facantaengine.git\sources\objet3d.cpp
 	"Objet3d.hpp"
 
-1375267538 c:\sfml\projets\facantaengine.git\sources\objet3d.hpp
+1375275890 c:\sfml\projets\facantaengine.git\sources\objet3d.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>

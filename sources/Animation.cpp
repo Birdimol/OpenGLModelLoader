@@ -78,7 +78,7 @@ void Animation::Stop()
     playing = false;
 }
 
-bool Animation::Afficher()
+bool Animation::Afficher(bool showLines)
 {
     bool animationFinished=false;
     if(modeles.size() > 1 && playing)
@@ -103,6 +103,14 @@ bool Animation::Afficher()
         }
     }
 
-    modeles[playedFrameNumber].Afficher();
+    if(showLines)
+    {
+        modeles[playedFrameNumber].AfficherLignes();
+    }
+    else
+    {
+        modeles[playedFrameNumber].Afficher();
+    }
+
     return animationFinished;
 }

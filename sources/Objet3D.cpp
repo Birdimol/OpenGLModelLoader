@@ -101,7 +101,20 @@ void Objet3D::Afficher()
     //glPushMatrix();
     //glRotated(angle,0,1,0);
     //glTranslated(position.x,position.y,position.z);
-    bool animationFinished = animations[currentAnimation].Afficher();
+    bool animationFinished = animations[currentAnimation].Afficher(false);
+    if(animationFinished)
+    {
+        currentAnimation = 0;
+    }
+    //glPopMatrix();
+}
+
+void Objet3D::AfficherLignes()
+{
+    //glPushMatrix();
+    //glRotated(angle,0,1,0);
+    //glTranslated(position.x,position.y,position.z);
+    bool animationFinished = animations[currentAnimation].Afficher(true);
     if(animationFinished)
     {
         currentAnimation = 0;

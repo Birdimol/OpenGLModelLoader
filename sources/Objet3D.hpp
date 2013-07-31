@@ -26,6 +26,7 @@ class Objet3D
     void StopAnimation();
     void AddAnimation(string modeleName, Lumiere *lumiere, int frameNumber);
     void Afficher();
+    void AfficherLignes();
     void SetPosition(float posx, float posy, float posz);
 
 

@@ -59,9 +59,15 @@ int main()
 
     sf::Sprite boutonsRotationLumiere;
     boutonsRotationLumiere.SetImage(iBoutons);
-    boutonsRotationLumiere.SetX(170);
+    boutonsRotationLumiere.SetX(174);
     boutonsRotationLumiere.SetY(10);
-    boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 0, 330, 32));
+    boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 0, 322, 32));
+
+    sf::Sprite boutonsFilDeFer;
+    boutonsFilDeFer.SetImage(iBoutons);
+    boutonsFilDeFer.SetX(340);
+    boutonsFilDeFer.SetY(10);
+    boutonsFilDeFer.SetSubRect(sf::IntRect(322, 0, 482, 32));
 
     sf::Sprite menu;
     menu.SetImage(iBoutons);
@@ -122,11 +128,9 @@ int main()
 
     ModelLoaderCamera camera(sf::Vector3f(0,4,4),sf::Vector3f(0,4,2));
 
-    bool rotX = false;
+    //variable de l'angle de rotation du modèle.
     bool rotY = false;
-    bool rotZ = false;
-
-    bool lignes = true;
+    bool lignes = false;
     bool lightRotation = false;
 
     float angleX = 0;
@@ -184,12 +188,27 @@ int main()
                     if(!lightRotation)
                     {
                         lightRotation = true;
-                        boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 32, 330, 64));
+                        boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 32, 322, 64));
                     }
                     else
                     {
                         lightRotation = false;
-                        boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 0, 330, 32));
+                        boutonsRotationLumiere.SetSubRect(sf::IntRect(160, 0, 322, 32));
+                    }
+                }
+
+                if(Input.GetMouseX() > boutonsFilDeFer.GetPosition().x && Input.GetMouseX() <  boutonsFilDeFer.GetPosition().x+boutonsFilDeFer.GetSize().x
+                   && Input.GetMouseY() > boutonsFilDeFer.GetPosition().y && Input.GetMouseY() <  boutonsFilDeFer.GetPosition().y+boutonsFilDeFer.GetSize().y)
+                {
+                    if(!lignes)
+                    {
+                        lignes = true;
+                        boutonsFilDeFer.SetSubRect(sf::IntRect(322, 32, 482, 64));
+                    }
+                    else
+                    {
+                        lignes = false;
+                        boutonsFilDeFer.SetSubRect(sf::IntRect(322, 0, 482, 32));
                     }
                 }
             }
@@ -238,11 +257,19 @@ int main()
             objet3D.SetAngle(angleX,angleY,angleZ);
         }
 
-        objet3D.Afficher();
+        if(lignes)
+        {
+            objet3D.AfficherLignes();
+        }
+        else
+        {
+            objet3D.Afficher();
+        }
 
         App.Draw(menu);
         App.Draw(boutonsRotationModele);
         App.Draw(boutonsRotationLumiere);
+        App.Draw(boutonsFilDeFer);
         App.Draw(text);
 
         App.Display();

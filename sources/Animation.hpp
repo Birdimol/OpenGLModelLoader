@@ -21,7 +21,7 @@ class Animation
     Animation(string modeleName, Lumiere *lumiere, int frameNumber);
     Animation();
     void modify(string modeleName, Lumiere *lumiere, int frameNumber);
-    bool Afficher();
+    bool Afficher(bool showLines);
     void Play();
     void Play(bool loop_);
     void Stop();
@@ -31,7 +31,6 @@ class Animation
     private :
     sf::Clock clock;
     vector<Model> modeles;
-
     float frameDelay;
     bool loop;
     bool playing;
