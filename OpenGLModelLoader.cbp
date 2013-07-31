@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="OpenGLModelLoader" />
+		<Option title="ModelViewer" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -49,6 +49,7 @@
 			<Add option="-lsfml-window-s" />
 			<Add option="-lsfml-system-s" />
 		</Linker>
+		<Unit filename="config\config.ini" />
 		<Unit filename="sources\Animation.cpp" />
 		<Unit filename="sources\Animation.hpp" />
 		<Unit filename="sources\Camera.cpp" />
