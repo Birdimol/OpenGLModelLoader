@@ -60,6 +60,25 @@ Objet3D::Objet3D(Lumiere *lumiere, string modeleName,int frameNumber)
     AddAnimation(modeleName, lumiere, frameNumber);
 }
 
+Objet3D::Objet3D(Lumiere *lumiere, string fcoFileName)
+{
+    position.x = 0;
+    position.y = 0;
+    position.z = 0;
+
+    currentAnimation = 0;
+
+    map<string, string> fcoAsMap = Tools::getFcoAsMap(fcoFileName);
+
+    //animation "de base"
+    AddAnimation(fcoAsMap["basicAnimation"], lumiere, 5);
+
+    AddAnimation(fcoAsMap["basicAnimation"], lumiere, Tools::StringToInt(fcoAsMap["basicAnimationFrameNumber"]));
+
+    //on joue l'animation de base
+    PlayAnimation(0);
+}
+
 void Objet3D::AddAnimation(string modeleName, Lumiere *lumiere, int frameNumber)
 {
     Animation temp(modeleName,lumiere, frameNumber);
@@ -68,7 +87,11 @@ void Objet3D::AddAnimation(string modeleName, Lumiere *lumiere, int frameNumber)
 
 void Objet3D::PlayAnimation(int animationNumber)
 {
-    if(animationNumber > 0 && animationNumber < (int)animations.size())
+    if(animationNumber == 0)
+    {
+        animations[0].Play(true);
+    }
+    else if(animationNumber > 0 && animationNumber < (int)animations.size())
     {
         animations[animationNumber].Play();
         currentAnimation = animationNumber;
@@ -98,15 +121,11 @@ void Objet3D::SetAngle(float x, float y, float z)
 
 void Objet3D::Afficher()
 {
-    //glPushMatrix();
-    //glRotated(angle,0,1,0);
-    //glTranslated(position.x,position.y,position.z);
     bool animationFinished = animations[currentAnimation].Afficher(false);
     if(animationFinished)
     {
         currentAnimation = 0;
     }
-    //glPopMatrix();
 }
 
 void Objet3D::AfficherLignes()

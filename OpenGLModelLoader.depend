@@ -527,10 +527,10 @@
 	<iostream>
 	<fstream>
 
-1369909968 source:f:\mes programmes\facantaengine\sources\modelloadercamera.cpp
+1375285051 source:f:\mes programmes\facantaengine\sources\modelloadercamera.cpp
 	"ModelLoaderCamera.hpp"
 
-1369909937 f:\mes programmes\facantaengine\sources\modelloadercamera.hpp
+1375285051 f:\mes programmes\facantaengine\sources\modelloadercamera.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -539,10 +539,10 @@
 	<string>
 	"Camera.hpp"
 
-1372423888 source:f:\mes programmes\facantaengine\sources\objet3d.cpp
+1375287697 source:f:\mes programmes\facantaengine\sources\objet3d.cpp
 	"Objet3d.hpp"
 
-1372423844 f:\mes programmes\facantaengine\sources\objet3d.hpp
+1375286241 f:\mes programmes\facantaengine\sources\objet3d.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -552,7 +552,7 @@
 	<vector>
 	"Animation.hpp"
 
-1372006989 f:\mes programmes\facantaengine\sources\animation.hpp
+1375285051 f:\mes programmes\facantaengine\sources\animation.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -573,7 +573,7 @@
 	"Point3D.hpp"
 	"Materiel.hpp"
 
-1374850796 source:f:\mes programmes\facantaengine\sources\main.cpp
+1375287814 source:f:\mes programmes\facantaengine\sources\main.cpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -786,4 +786,31 @@
 	"ModelLoaderCamera.hpp"
 	"Animation.hpp"
 	"Objet3D.hpp"
+
+1375286988 f:\mes programmes\facantaengine\sources\tools.hpp
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	<iomanip>
+	<string>
+	<sstream>
+
+1375285051 source:f:\mes programmes\facantaengine\sources\animation.cpp
+	"Animation.hpp"
+
+1375287461 source:f:\mes programmes\facantaengine\sources\tools.cpp
+	"Tools.hpp"
+	<iostream>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<GL/gl.h>
+	<GL/glu.h>
+	<string>
+	<vector>
+	<fstream>
+	<map>
 

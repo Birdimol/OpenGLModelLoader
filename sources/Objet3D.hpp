@@ -20,6 +20,7 @@ class Objet3D
     Objet3D(Lumiere *lumiere, string modeleName,int frameNumber);
     Objet3D(Lumiere *lumiere, float posx, float posy, float posz);
     Objet3D(Lumiere *lumiere, float posx, float posy, float posz, float angle_);
+    Objet3D(Lumiere *lumiere, string fcoFileName);
     void SetAngle(sf::Vector3f input_angle);
     void SetAngle(float x, float y, float z);
     void PlayAnimation(int animationNumber);

@@ -112,8 +112,8 @@ int main()
 
     Lumiere lumiere(0,100,100,120);
 
-    Objet3D objet3D(&lumiere,modele3DFile,1);
-
+    Objet3D objet3D(&lumiere,modele3DFile);
+    cout << "main 116!"<<endl;
     //objet3D.AddAnimation("duck_step2",&lumiere,48);
 
     glDisable(GL_TEXTURE_2D);

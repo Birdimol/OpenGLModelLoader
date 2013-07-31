@@ -10,7 +10,6 @@
 #include <fstream>
 #include <map>
 
-
 using namespace std;
 
 string Tools::RemplaceDoubleSlash(string s)
@@ -118,6 +117,54 @@ string Tools::modelSelectionConsoleMenu()
         cout << "/!\\ Model not found. /!\\ " << endl;
         return "canard";
     }
+}
+
+map<string, string> Tools::getFcoAsMap(string fcoFileName)
+{
+    map<string, string> fcoFileAsMap;
+
+    string line;
+    string completeFileName = "modeles/"+fcoFileName+".fco";
+    ifstream myfile (completeFileName.c_str());
+
+    if (myfile.is_open())
+    {
+        while ( myfile.good() )
+        {
+            getline(myfile,line);
+
+            //if line isn't empty;
+            if(line.size() > 0)
+            {
+                //erasing space in line
+                std::size_t found = line.find_first_of(" ");
+                while(found!=std::string::npos)
+                {
+                    line.erase(line.begin()+found);
+                    found=line.find_first_of(" ");
+                }
+
+                //Ignoring sections and comments
+                if(line.at(0) != ';' && line.at(0) != '[')
+                {
+                    found=line.find_first_of("=");
+                    if(found!=std::string::npos)
+                    {
+                        string arg = line.substr(0,found);
+                        string value = line.substr(found+1);
+                        fcoFileAsMap[arg] = value;
+                    }
+                }
+            }
+        }
+        myfile.close();
+    }
+    else
+    {
+        cout << "Fichier fco (modeles/config.fco) introuvable." << endl;
+    }
+
+    return fcoFileAsMap;
 }
 
 map<string, int> Tools::getConfig()
