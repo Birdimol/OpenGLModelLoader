@@ -590,10 +590,10 @@
 	"Animation.hpp"
 	"Objet3D.hpp"
 
-1375275853 source:c:\sfml\projets\facantaengine.git\sources\animation.cpp
+1375356720 source:c:\sfml\projets\facantaengine.git\sources\animation.cpp
 	"Animation.hpp"
 
-1375275847 c:\sfml\projets\facantaengine.git\sources\animation.hpp
+1375356720 c:\sfml\projets\facantaengine.git\sources\animation.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -681,7 +681,7 @@
 	<GL/glu.h>
 	<string>
 
-1375252684 source:c:\sfml\projets\facantaengine.git\sources\flyingcamera.cpp
+1375349635 source:c:\sfml\projets\facantaengine.git\sources\flyingcamera.cpp
 	"FlyingCamera.hpp"
 
 1375252684 c:\sfml\projets\facantaengine.git\sources\flyingcamera.hpp
@@ -712,7 +712,7 @@
 	"Tools.hpp"
 	"Materiel.hpp"
 
-1375252684 source:c:\sfml\projets\facantaengine.git\sources\model.cpp
+1375356059 source:c:\sfml\projets\facantaengine.git\sources\model.cpp
 	"Model.hpp"
 	"Surface.hpp"
 	"Point3D.hpp"
@@ -736,10 +736,10 @@
 	<string>
 	"Camera.hpp"
 
-1375275890 source:c:\sfml\projets\facantaengine.git\sources\objet3d.cpp
+1375358901 source:c:\sfml\projets\facantaengine.git\sources\objet3d.cpp
 	"Objet3d.hpp"
 
-1375275890 c:\sfml\projets\facantaengine.git\sources\objet3d.hpp
+1375356898 c:\sfml\projets\facantaengine.git\sources\objet3d.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -758,7 +758,7 @@
 	"Point3D.hpp"
 	"Materiel.hpp"
 
-1375265157 source:c:\sfml\projets\facantaengine.git\sources\tools.cpp
+1375355989 source:c:\sfml\projets\facantaengine.git\sources\tools.cpp
 	"Tools.hpp"
 	<iostream>
 	<SFML/Window.hpp>
@@ -770,7 +770,7 @@
 	<fstream>
 	<map>
 
-1375276890 source:c:\sfml\projets\facantaengine.git\sources\main.cpp
+1375358701 source:c:\sfml\projets\facantaengine.git\sources\main.cpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>

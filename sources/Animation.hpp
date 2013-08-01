@@ -27,11 +27,14 @@ class Animation
     void Stop();
     void SetAngle(sf::Vector3f input_angle);
     void SetAngle(float x, float y, float z);
+    void SetName(string name);
+    string GetName();
 
     private :
     sf::Clock clock;
     vector<Model> modeles;
     float frameDelay;
+    string name;
     bool loop;
     bool playing;
     int playedFrameNumber;

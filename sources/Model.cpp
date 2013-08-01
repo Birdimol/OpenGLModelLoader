@@ -427,7 +427,7 @@ int Model::ChargerModele(string nomFichier)
     }
     else
     {
-        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
+        cout << "ERREUR: Impossible d'ouvrir le fichier '"+ temp +"' en lecture." << endl;
         return 0;
     }
 }

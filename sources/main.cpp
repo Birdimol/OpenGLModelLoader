@@ -88,16 +88,29 @@ int main()
         return 1;
     }
 
-    sf::String text("FPS : ??", font, 30);
+    sf::String text("Chargement du modele...", font, 30);
+    text.SetColor(sf::Color(255,255,255));
+    text.SetX(200);
+    text.SetY(300);
+
+    App.SetActive();
+    App.Draw(text);
+    App.Display();
+
     text.SetColor(sf::Color(0,0,0));
     text.SetX(650);
     text.SetY(10);
+
+    sf::String animationName("", font, 30);
+    animationName.SetColor(sf::Color(0,0,0));
+    animationName.SetX(600);
+    animationName.SetY(100);
 
     // Create a clock for measuring time elapsed
     sf::Clock Clock;
     sf::Clock ClockAnimation;
 
-   // Set color and depth clear value
+    // Set color and depth clear value
     glClearDepth(1.f);
     glClearColor(0.4, 0.4, 0.8, 0.f);
 
@@ -113,8 +126,6 @@ int main()
     Lumiere lumiere(0,100,100,120);
 
     Objet3D objet3D(&lumiere,modele3DFile);
-    cout << "main 116!"<<endl;
-    //objet3D.AddAnimation("duck_step2",&lumiere,48);
 
     glDisable(GL_TEXTURE_2D);
 
@@ -234,9 +245,22 @@ int main()
                 angleZ = 0;
             }
 
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::J))
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num0))
             {
-                objet3D.PlayAnimation(1);
+                objet3D.PlayAnimation(0,true);
+                animationName.SetText(objet3D.GetCurrentAnimationName());
+            }
+
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num1))
+            {
+                objet3D.PlayAnimation(1,true);
+                animationName.SetText(objet3D.GetCurrentAnimationName());
+            }
+
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num2))
+            {
+                objet3D.PlayAnimation(2,true);
+                animationName.SetText(objet3D.GetCurrentAnimationName());
             }
         }
 
@@ -270,6 +294,7 @@ int main()
         App.Draw(boutonsRotationModele);
         App.Draw(boutonsRotationLumiere);
         App.Draw(boutonsFilDeFer);
+        App.Draw(animationName);
         App.Draw(text);
 
         App.Display();

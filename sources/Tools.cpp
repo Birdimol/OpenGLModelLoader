@@ -161,7 +161,7 @@ map<string, string> Tools::getFcoAsMap(string fcoFileName)
     }
     else
     {
-        cout << "Fichier fco (modeles/config.fco) introuvable." << endl;
+        cout << "Fichier fco (modeles/"+fcoFileName+".fco) introuvable." << endl;
     }
 
     return fcoFileAsMap;

@@ -30,13 +30,13 @@ class Objet3D
     Objet3D(Lumiere *lumiere, string fcoFileName);
     void SetAngle(sf::Vector3f input_angle);
     void SetAngle(float x, float y, float z);
-    void PlayAnimation(int animationNumber);
+    void PlayAnimation(int animationNumber, bool repeat);
     void StopAnimation();
     void AddAnimation(string modeleName, Lumiere *lumiere, int frameNumber);
     void Afficher();
     void AfficherLignes();
     void SetPosition(float posx, float posy, float posz);
-
+    string GetCurrentAnimationName();
 
     private :
     vector<Animation> animations;

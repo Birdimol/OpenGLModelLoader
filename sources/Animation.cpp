@@ -114,3 +114,13 @@ bool Animation::Afficher(bool showLines)
 
     return animationFinished;
 }
+
+void Animation::SetName(string name_)
+{
+    name = name_;
+}
+
+string Animation::GetName()
+{
+    return name;
+}
