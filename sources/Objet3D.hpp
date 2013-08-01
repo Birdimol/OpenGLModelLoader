@@ -19,7 +19,6 @@ using namespace std;
 * \author Favay Thomas
 *
 * Elle permet de gérer les animations, la position, l'angle et le mode d'affichage.
-*
 */
 class Objet3D
 {
