@@ -23,6 +23,13 @@
 class Point3D
 {
     public :
+
+    /*!
+    *   \brief Constructeur par défaut.
+    *
+    */
+    Point3D();
+
     /*!
     *   \brief Constructeur spécifiant uniquement la position spaciale du point.
     *   Il sera par défaut sans texture, avec une normale verticale et de couleur verte sans transparance.
@@ -83,6 +90,8 @@ class Point3D
     *
     */
     void SetTexture(float x, float y);
+
+    sf::Vector3f GetPosition();
 
     private :
     //position

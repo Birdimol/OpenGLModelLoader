@@ -101,7 +101,7 @@ string Tools::modelSelectionConsoleMenu()
     cout << "  | C to reset rotation   |" << endl;
     cout << "  -------------------------" << endl << endl;
     cout << "  Enter the model you want to see." << endl;
-    cout << "  The model must be located in the modeles directory and must be an obj file." << endl;
+    cout << "  The model must be located in the modeles directory and must be an fco file." << endl;
     cout << "  > ";
     cin >> choix;
 

@@ -5,6 +5,10 @@
 
 using namespace std;
 
+Point3D::Point3D()
+{
+}
+
 Point3D::Point3D(float input_px, float input_py, float input_pz)
 {
     px = input_px;
@@ -41,6 +45,12 @@ Point3D::Point3D(float input_px, float input_py, float input_pz, float input_nx,
     g = input_g;
     b = input_b;
     a = input_a;
+}
+
+sf::Vector3f Point3D::GetPosition()
+{
+    sf::Vector3f temp(px,py,pz);
+    return temp;
 }
 
 void Point3D::SetColor(int input_r, int input_g, int input_b, int input_a)

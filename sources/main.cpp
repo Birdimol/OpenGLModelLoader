@@ -14,6 +14,7 @@
 #include "ModelLoaderCamera.hpp"
 #include "Animation.hpp"
 #include "Objet3D.hpp"
+#include "caseMap.hpp"
 
 #define PI 3.14159265358979323846
 
