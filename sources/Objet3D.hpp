@@ -13,6 +13,13 @@
 
 using namespace std;
 
+/*!
+* \class Objet3D Objet3D.hpp
+* \brief Cette classe représente tout objet 3d utilisé, ce dernier est considéré comme un ensemble d'animation (avec une par défaut).
+* \author Favay Thomas
+*
+* Elle permet de gérer les animations, la position, l'angle et le mode d'affichage.
+*/
 class Objet3D
 {
     public :
@@ -20,15 +27,16 @@ class Objet3D
     Objet3D(Lumiere *lumiere, string modeleName,int frameNumber);
     Objet3D(Lumiere *lumiere, float posx, float posy, float posz);
     Objet3D(Lumiere *lumiere, float posx, float posy, float posz, float angle_);
+    Objet3D(Lumiere *lumiere, string fcoFileName);
     void SetAngle(sf::Vector3f input_angle);
     void SetAngle(float x, float y, float z);
-    void PlayAnimation(int animationNumber);
+    void PlayAnimation(int animationNumber, bool repeat);
     void StopAnimation();
     void AddAnimation(string modeleName, Lumiere *lumiere, int frameNumber);
     void Afficher();
     void AfficherLignes();
     void SetPosition(float posx, float posy, float posz);
-
+    string GetCurrentAnimationName();
 
     private :
     vector<Animation> animations;

@@ -10,8 +10,6 @@ FlyingCamera::FlyingCamera(sf::Vector3f position, sf::Vector3f cible) : Camera(p
 
     vitesse_rotation = 3;
     vitesse_deplacement = 3;
-
-//    Info();
 }
 
 void FlyingCamera::Avance()
@@ -130,24 +128,20 @@ void FlyingCamera::handleSfmlRealtimeInput(const sf::Input& Input)
     if (Input.IsKeyDown(sf::Key::Z))
     {
        Avance();
-//       Info();
     }
 
     if (Input.IsKeyDown(sf::Key::Space))
     {
        Monte();
-//       Info();
     }
 
     if (Input.IsKeyDown(sf::Key::N))
     {
        Descend();
-//       Info();
     }
 
     if (Input.IsKeyDown(sf::Key::S))
     {
        Recule();
- //      Info();
     }
 }

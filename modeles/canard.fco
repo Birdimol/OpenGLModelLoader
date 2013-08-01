@@ -1,0 +1,11 @@
+name=Canard
+basicAnimationName=sans nom
+basicAnimation=duck_step2
+basicAnimationFrameNumber=1
+animationNumber=2
+Animation1Name=fuck
+Animation1=duck_step2
+Animation1FrameNumber=48
+Animation2Name=test
+Animation2=canard
+Animation2FrameNumber=24

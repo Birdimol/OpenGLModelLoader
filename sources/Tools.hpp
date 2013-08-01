@@ -36,6 +36,7 @@ class Tools
     static int StringToInt(string a);
     static string modelSelectionConsoleMenu();
     static map<string, int> getConfig();
+    static map<string, string> getFcoAsMap(string fcoFileName);
 };
 
 #endif

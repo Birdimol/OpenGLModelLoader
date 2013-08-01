@@ -10,7 +10,6 @@
 #include <fstream>
 #include <map>
 
-
 using namespace std;
 
 string Tools::RemplaceDoubleSlash(string s)
@@ -91,9 +90,19 @@ vector<int> Tools::SplitSpace(string s)
 string Tools::modelSelectionConsoleMenu()
 {
     string choix;
-    cout << "Enter the model you want to see." << endl;
-    cout << "The model must be located in the modeles directory and must be an obj file." << endl;
-    cout << "> ";
+    cout << endl << "  FacantaEngine 1.a - ModelViewer - 2013 - Favay Thomas" << endl << endl;
+    cout << "  -------------------------" << endl;
+    cout << "  | PageUp to look up     |" << endl;
+    cout << "  | PageDown to look down |" << endl;
+    cout << "  | PavNum8 to go up      |" << endl;
+    cout << "  | PavNum2 to go down    |" << endl;
+    cout << "  | - to take distance    |" << endl;
+    cout << "  | + to go closer        |" << endl;
+    cout << "  | C to reset rotation   |" << endl;
+    cout << "  -------------------------" << endl << endl;
+    cout << "  Enter the model you want to see." << endl;
+    cout << "  The model must be located in the modeles directory and must be an obj file." << endl;
+    cout << "  > ";
     cin >> choix;
 
     string choix_complet = "modeles/"+choix+".obj";
@@ -108,6 +117,54 @@ string Tools::modelSelectionConsoleMenu()
         cout << "/!\\ Model not found. /!\\ " << endl;
         return "canard";
     }
+}
+
+map<string, string> Tools::getFcoAsMap(string fcoFileName)
+{
+    map<string, string> fcoFileAsMap;
+
+    string line;
+    string completeFileName = "modeles/"+fcoFileName+".fco";
+    ifstream myfile (completeFileName.c_str());
+
+    if (myfile.is_open())
+    {
+        while ( myfile.good() )
+        {
+            getline(myfile,line);
+
+            //if line isn't empty;
+            if(line.size() > 0)
+            {
+                //erasing space in line
+                std::size_t found = line.find_first_of(" ");
+                while(found!=std::string::npos)
+                {
+                    line.erase(line.begin()+found);
+                    found=line.find_first_of(" ");
+                }
+
+                //Ignoring sections and comments
+                if(line.at(0) != ';' && line.at(0) != '[')
+                {
+                    found=line.find_first_of("=");
+                    if(found!=std::string::npos)
+                    {
+                        string arg = line.substr(0,found);
+                        string value = line.substr(found+1);
+                        fcoFileAsMap[arg] = value;
+                    }
+                }
+            }
+        }
+        myfile.close();
+    }
+    else
+    {
+        cout << "Fichier fco (modeles/"+fcoFileName+".fco) introuvable." << endl;
+    }
+
+    return fcoFileAsMap;
 }
 
 map<string, int> Tools::getConfig()
