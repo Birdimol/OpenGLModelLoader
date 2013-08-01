@@ -11,6 +11,13 @@
 
 #include "Camera.hpp"
 
+/*!
+* \class ModelLoaderCamera ModelLoaderCamera.hpp
+* \brief Cette camera est une camera qui fixe un objectif, elle ne permet pas de se déplacer librement mais est pratique pour visionner des modeles.
+* \author Favay Thomas
+*
+* Elle permet de se rapprocher, s'éloigner regarder de haut, d'en bas et de monter et descendre.
+*/
 class ModelLoaderCamera : public Camera
 {
     public :

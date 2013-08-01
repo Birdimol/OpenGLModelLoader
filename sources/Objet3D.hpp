@@ -17,7 +17,7 @@ using namespace std;
 * \class Objet3D Objet3D.hpp
 * \brief Cette classe représente tout objet 3d utilisé, ce dernier est considéré comme un ensemble d'animation (avec une par défaut).
 * \author Favay Thomas
-*   d
+*
 * Elle permet de gérer les animations, la position, l'angle et le mode d'affichage.
 */
 class Objet3D
