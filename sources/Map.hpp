@@ -8,16 +8,20 @@
 #include <GL/glu.h>
 #include <string>
 
-#include "Model.hpp"
+#include "CaseMap.hpp"
 
 class Map
 {
     protected :
-    vector<Model> listeModels;
+    vector<CaseMap> listeCaseMaps;
+    bool LIGHT ;
+    bool NORM;
 
     public :
     Map();
     void Afficher();
+    void calculNormaleParFace();
+    void calculeNormaleParPoint();
 };
 
 #endif

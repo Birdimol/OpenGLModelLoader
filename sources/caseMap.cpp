@@ -33,6 +33,7 @@ void CaseMap::changeTexture(GLuint nouvelleTexture)
 
 void CaseMap::afficher()
 {
+    glEnable(GL_TEXTURE_2D);
     if(glIsEnabled(GL_TEXTURE_2D))
     {
         glColor3d(1,1,1);

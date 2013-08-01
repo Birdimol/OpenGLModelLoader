@@ -380,6 +380,7 @@ void Vertex::afficher_haut_gauche_texture()
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_TRIANGLES);
 
+
     if( *LIGHT == true)
     {
         glColor3f(eclairage_A,eclairage_A,eclairage_A);
@@ -388,8 +389,15 @@ void Vertex::afficher_haut_gauche_texture()
     {
         glColor3f(eclairage_normale_A,eclairage_normale_A,eclairage_normale_A);
     }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+
+
     glTexCoord2d(coord_texture_x_1,coord_texture_y_1);
     glVertex3d(A.GetPosition().x,A.GetPosition().y,A.GetPosition().z);
+
 
     if( *LIGHT == true)
     {
@@ -399,10 +407,15 @@ void Vertex::afficher_haut_gauche_texture()
     {
         glColor3f(eclairage_normale_B,eclairage_normale_B,eclairage_normale_B);
     }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+
+
     glTexCoord2d(coord_texture_x_2,coord_texture_y_1);
-
-
     glVertex3d(B.GetPosition().x,B.GetPosition().y,B.GetPosition().z);
+
     glTexCoord2d(coord_texture_x_2,coord_texture_y_2);
 
     if( *LIGHT == true)
@@ -412,6 +425,10 @@ void Vertex::afficher_haut_gauche_texture()
     else if(*NORM==true)
     {
         glColor3f(eclairage_normale_C,eclairage_normale_C,eclairage_normale_C);
+    }
+    else
+    {
+        glColor3f(1,1,1);
     }
 
     glVertex3d(C.GetPosition().x,C.GetPosition().y,C.GetPosition().z);
@@ -421,7 +438,6 @@ void Vertex::afficher_haut_gauche_texture()
 void Vertex::afficher_bas_droite_texture()
 {
     glBindTexture(GL_TEXTURE_2D, texture);
-
     glBegin(GL_TRIANGLES);
     if( *LIGHT == true)
     {
@@ -431,6 +447,10 @@ void Vertex::afficher_bas_droite_texture()
     {
         glColor3f(eclairage_normale_A,eclairage_normale_A,eclairage_normale_A);
     }
+    else
+    {
+        glColor3f(1,1,1);
+    }
     glTexCoord2d(coord_texture_x_1,coord_texture_y_1);
     glVertex3d(A.GetPosition().x,A.GetPosition().y,A.GetPosition().z);
 
@@ -438,10 +458,13 @@ void Vertex::afficher_bas_droite_texture()
     {
         glColor3f(eclairage_B,eclairage_B,eclairage_B);
     }
-
     else if(*NORM==true)
     {
         glColor3f(eclairage_normale_B,eclairage_normale_B,eclairage_normale_B);
+    }
+    else
+    {
+        glColor3f(1,1,1);
     }
     glTexCoord2d(coord_texture_x_2,coord_texture_y_2);
     glVertex3d(B.GetPosition().x,B.GetPosition().y,B.GetPosition().z);
@@ -453,6 +476,10 @@ void Vertex::afficher_bas_droite_texture()
     else if(*NORM==true)
     {
         glColor3f(eclairage_normale_C,eclairage_normale_C,eclairage_normale_C);
+    }
+    else
+    {
+        glColor3f(1,1,1);
     }
     glTexCoord2d(coord_texture_x_1,coord_texture_y_2);
     glVertex3d(C.GetPosition().x,C.GetPosition().y,C.GetPosition().z);

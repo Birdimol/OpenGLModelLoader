@@ -14,7 +14,7 @@
 #include "ModelLoaderCamera.hpp"
 #include "Animation.hpp"
 #include "Objet3D.hpp"
-#include "caseMap.hpp"
+#include "Map.hpp"
 
 #define PI 3.14159265358979323846
 
@@ -138,7 +138,8 @@ int main()
 
     glMatrixMode(GL_MODELVIEW);
 
-    ModelLoaderCamera camera(sf::Vector3f(0,4,4),sf::Vector3f(0,4,2));
+
+    FlyingCamera camera(sf::Vector3f(0,4,4),sf::Vector3f(0,4,2));
 
     //variable de l'angle de rotation du modèle.
     bool rotY = false;
@@ -150,6 +151,10 @@ int main()
     float angleZ = 0;
 
     const sf::Input& Input = App.GetInput();
+
+    Map map;
+
+    map.calculNormaleParFace();
 
     // Start game loop
     while (App.IsOpened())
@@ -290,6 +295,8 @@ int main()
         {
             objet3D.Afficher();
         }
+
+        map.Afficher();
 
         App.Draw(menu);
         App.Draw(boutonsRotationModele);

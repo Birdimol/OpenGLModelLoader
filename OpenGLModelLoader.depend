@@ -696,17 +696,18 @@
 1375252684 source:c:\sfml\projets\facantaengine.git\sources\lumiere.cpp
 	"Lumiere.hpp"
 
-1375252684 source:c:\sfml\projets\facantaengine.git\sources\map.cpp
+1375372011 source:c:\sfml\projets\facantaengine.git\sources\map.cpp
 	"Map.hpp"
+	"Tools.hpp"
 
-1375252684 c:\sfml\projets\facantaengine.git\sources\map.hpp
+1375372148 c:\sfml\projets\facantaengine.git\sources\map.hpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
 	<GL/gl.h>
 	<GL/glu.h>
 	<string>
-	"Model.hpp"
+	"CaseMap.hpp"
 
 1375252684 source:c:\sfml\projets\facantaengine.git\sources\materiel.cpp
 	"Tools.hpp"
@@ -758,7 +759,7 @@
 	"Point3D.hpp"
 	"Materiel.hpp"
 
-1375363676 source:c:\sfml\projets\facantaengine.git\sources\tools.cpp
+1375367702 source:c:\sfml\projets\facantaengine.git\sources\tools.cpp
 	"Tools.hpp"
 	<iostream>
 	<SFML/Window.hpp>
@@ -770,7 +771,7 @@
 	<fstream>
 	<map>
 
-1375364713 source:c:\sfml\projets\facantaengine.git\sources\main.cpp
+1375369736 source:c:\sfml\projets\facantaengine.git\sources\main.cpp
 	<iostream>
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -786,9 +787,9 @@
 	"ModelLoaderCamera.hpp"
 	"Animation.hpp"
 	"Objet3D.hpp"
-	"caseMap.hpp"
+	"Map.hpp"
 
-1375367624 source:c:\sfml\projets\facantaengine.git\sources\casemap.cpp
+1375368884 source:c:\sfml\projets\facantaengine.git\sources\casemap.cpp
 	"caseMap.hpp"
 
 1375367624 c:\sfml\projets\facantaengine.git\sources\casemap.hpp
@@ -809,6 +810,6 @@
 	<string>
 	"point3D.hpp"
 
-1375367611 source:c:\sfml\projets\facantaengine.git\sources\vertex.cpp
+1375372082 source:c:\sfml\projets\facantaengine.git\sources\vertex.cpp
 	"vertex.hpp"
 
