@@ -220,6 +220,39 @@ map<string, int> Tools::getConfig()
     return config;
 }
 
+void Tools::AfficherAxes()
+{
+    glDisable(GL_TEXTURE_2D);
+    glLineWidth((GLfloat)2);
+    glBegin(GL_LINES);
+        glColor3ub(0,0,255);
+        glVertex3d(0,0,0);
+        glVertex3d(50,0,0);
+
+        glColor3ub(255,0,0);
+        glVertex3d(0,0,0);
+        glVertex3d(0,0,50);
+
+        glColor3ub(0,255,0);
+        glVertex3d(0,0,0);
+        glVertex3d(0,50,0);
+    glEnd();
+    glLineWidth((GLfloat)1);
+
+    glPointSize((GLfloat)10);
+    glBegin(GL_POINTS);
+        glColor3ub(0,0,255);
+        glVertex3d(50,0,0);
+
+        glColor3ub(0,255,0);
+        glVertex3d(0,50,0);
+
+        glColor3ub(255,0,0);
+        glVertex3d(0,0,50);
+    glEnd();
+    glPointSize((GLfloat)1);
+}
+
 vector<string> Tools::SplitSlashes(string s)
 {
     //Eclate une chaîne au niveau de ses espaces.

@@ -37,6 +37,7 @@ class Tools
     static string modelSelectionConsoleMenu();
     static map<string, int> getConfig();
     static map<string, string> getFcoAsMap(string fcoFileName);
+    static void AfficherAxes();
 };
 
 #endif

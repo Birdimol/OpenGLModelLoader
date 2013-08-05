@@ -1,12 +1,12 @@
 #include "Map.hpp"
 #include "Tools.hpp"
 
-Map::Map()
+Map::Map(int largeur, int longueur)
 {
-    GLuint herbe = Tools::chargerTexture("./images/herbe.png");
+    largeurX = largeur;
+    longueurZ = longueur;
 
-    int largeur=20;
-    int longueur=20;
+    GLuint herbe = Tools::chargerTexture("./images/herbe.png");
 
     LIGHT = false;
     NORM = true;
@@ -16,21 +16,35 @@ Map::Map()
     unsigned int Seed = 10;
     sf::Randomizer::SetSeed(Seed);
 
-    for(int i=0; i<=largeur;i++)
+    //1 point de largeur et longueur en plus qu'il n'y a de cases, d'ou le <=
+    for(int x=0; x<=largeurX;x++)
     {
-        for(int j=0; j<=longueur;j++)
+        for(int z=0; z<=longueurZ;z++)
         {
-            tableau_points[i][j] = sf::Randomizer::Random(0, 300)/100.0;
-            cout << tableau_points[i][j] << ",";
+            //on reste plat sur les bords
+            if(x == 0 || z == 0 || x == largeurX || z == longueurZ)
+            {
+                tableau_points[x][z] = 0;
+            }
+            else if((x == 5 && (z == 5 || z ==6)) || (x == 6 && (z == 5 || z ==6)))
+            {
+                tableau_points[x][z] = 3;
+            }
+            else
+            {
+                tableau_points[x][z] = 0;
+            }
+            cout << tableau_points[x][z] << ",";
         }
         cout << endl;
     }
 
-    float largeurCase = 4;
+    largeurCase = 4;
 
-    for(int x=0;x<largeur;x++)
+
+    for(int z=0;z<longueurZ;z++)
     {
-        for(int z=0;z<longueur;z++)
+        for(int x=0;x<largeurX;x++)
         {
             Point3D A(x*largeurCase    , tableau_points[x][z]    ,  z*largeurCase   );
             Point3D B(x*largeurCase    , tableau_points[x][z+1]  , (z+1)*largeurCase);
@@ -49,62 +63,58 @@ Map::Map()
 
 void Map::calculNormaleParFace()
 {
-    int largeur=20;
-    int longueur=20;
-    for(int i=0; i<longueur;i++)
+    for(int x=0; x<largeurX;x++)
     {
-        for(int j=0; j<largeur;j++)
+        for(int z=0; z<longueurZ;z++)
         {
-            listeCaseMaps[i*largeur+j].calcule_normale2();
+            listeCaseMaps[z*largeurX+x].calcule_normale2();
         }
     }
 }
 
 void Map::calculeNormaleParPoint()
 {
-    int largeur=20;
-    int longueur=20;
-    for(int i=1; i<longueur-1;i++)
+    for(int x=0; x<largeurX;x++)
     {
-        for(int j=1; j<largeur-1;j++)
+        for(int z=0; z<longueurZ;z++)
         {
             float A =   (
-                        listeCaseMaps[i*largeur + j-1].get_normale_moyenne_BD() +
-                        listeCaseMaps[i*largeur + j].get_normale_moyenne_BD() +
-                        listeCaseMaps[i*largeur + j].get_normale_moyenne_HG() +
-                        listeCaseMaps[(i-1)*largeur + j].get_normale_moyenne_HG() +
-                        listeCaseMaps[(i-1)*largeur + j-1].get_normale_moyenne_HG() +
-                        listeCaseMaps[(i-1)*largeur + j-1].get_normale_moyenne_BD()
+                        listeCaseMaps[(z-1)*largeurX + x].get_normale_moyenne_BD() +
+                        listeCaseMaps[(z-1)*largeurX + x].get_normale_moyenne_BD() +
+                        listeCaseMaps[(z-1)*largeurX + x-1].get_normale_moyenne_BD() +
+                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_HG() +
+                        listeCaseMaps[z*largeurX + x-1].get_normale_moyenne_HG() +
+                        listeCaseMaps[z*largeurX + x-1].get_normale_moyenne_BD()
                         )/6.0;
 
             float B =   (
-                        listeCaseMaps[(i+1)*largeur+j-1].get_normale_moyenne_BD() +
-                        listeCaseMaps[(i+1)*largeur + j].get_normale_moyenne_BD() +
-                        listeCaseMaps[(i+1)*largeur + j].get_normale_moyenne_HG() +
-                        listeCaseMaps[i*largeur + j].get_normale_moyenne_HG() +
-                        listeCaseMaps[i*largeur + j-1].get_normale_moyenne_HG() +
-                        listeCaseMaps[i*largeur + j-1].get_normale_moyenne_BD()
+                        listeCaseMaps[(z)*largeurX +x].get_normale_moyenne_BD() +
+                        listeCaseMaps[(z)*largeurX + x].get_normale_moyenne_HG() +
+                        listeCaseMaps[(z+1)*largeurX + x-1].get_normale_moyenne_HG() +
+                        listeCaseMaps[(z+1)*largeurX + x-1].get_normale_moyenne_BD() +
+                        listeCaseMaps[(z+1)*largeurX + x].get_normale_moyenne_HG() +
+                        listeCaseMaps[z*largeurX + x-1].get_normale_moyenne_BD()
                         )/6.0;
 
             float C =   (
-                        listeCaseMaps[(i+1)*largeur + j].get_normale_moyenne_BD() +
-                        listeCaseMaps[(i+1)*largeur + j+1].get_normale_moyenne_BD() +
-                        listeCaseMaps[(i+1)*largeur + j+1].get_normale_moyenne_HG() +
-                        listeCaseMaps[i*largeur + j+1].get_normale_moyenne_HG() +
-                        listeCaseMaps[i*largeur + j].get_normale_moyenne_HG() +
-                        listeCaseMaps[i*largeur + j].get_normale_moyenne_BD()
+                        listeCaseMaps[(z+1)*largeurX + x].get_normale_moyenne_BD() +
+                        listeCaseMaps[(z+1)*largeurX + x].get_normale_moyenne_HG() +
+                        listeCaseMaps[z*largeurX + x+1].get_normale_moyenne_HG() +
+                        listeCaseMaps[z*largeurX + x+1].get_normale_moyenne_BD() +
+                        listeCaseMaps[(z+1)*largeurX + x+1].get_normale_moyenne_HG() +
+                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_BD()
                         )/6.0;
 
             float D =   (
-                        listeCaseMaps[i*largeur + j].get_normale_moyenne_BD() +
-                        listeCaseMaps[i*largeur + j+1].get_normale_moyenne_BD() +
-                        listeCaseMaps[i*largeur + j+1].get_normale_moyenne_HG() +
-                        listeCaseMaps[(i-1)*largeur + j+1].get_normale_moyenne_HG() +
-                        listeCaseMaps[(i-1)*largeur + j].get_normale_moyenne_HG() +
-                        listeCaseMaps[(i-1)*largeur + j].get_normale_moyenne_BD()
+                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_BD() +
+                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_HG() +
+                        listeCaseMaps[(z-1)*largeurX + x+1].get_normale_moyenne_HG() +
+                        listeCaseMaps[(z-1)*largeurX + x+1].get_normale_moyenne_BD() +
+                        listeCaseMaps[(z)*largeurX + x+1].get_normale_moyenne_HG() +
+                        listeCaseMaps[(z-1)*largeurX + x].get_normale_moyenne_BD()
                         )/6.0;
 
-            listeCaseMaps[i*largeur + j].set_eclairage_normale(A,D,C,B);
+            listeCaseMaps[z*largeurX + x].set_eclairage_normale(A,D,C,B);
         }
     }
 }

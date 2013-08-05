@@ -16,9 +16,13 @@ class Map
     vector<CaseMap> listeCaseMaps;
     bool LIGHT ;
     bool NORM;
+    int largeurX;
+    int longueurZ;
+    int largeurCase;
+
 
     public :
-    Map();
+    Map(int largeur, int longueur);
     void Afficher();
     void calculNormaleParFace();
     void calculeNormaleParPoint();

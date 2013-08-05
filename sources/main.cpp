@@ -22,7 +22,7 @@ using namespace std;
 
 int main()
 {
-    string modele3DFile = Tools::modelSelectionConsoleMenu();
+    //string modele3DFile = Tools::modelSelectionConsoleMenu();
 
     //parametres liés à config.ini
     map<string, int> config = Tools::getConfig();
@@ -126,7 +126,7 @@ int main()
 
     Lumiere lumiere(0,100,100,120);
 
-    Objet3D objet3D(&lumiere,modele3DFile);
+    //Objet3D objet3D(&lumiere,modele3DFile);
 
     glDisable(GL_TEXTURE_2D);
 
@@ -138,8 +138,7 @@ int main()
 
     glMatrixMode(GL_MODELVIEW);
 
-
-    FlyingCamera camera(sf::Vector3f(0,4,4),sf::Vector3f(0,4,2));
+    FlyingCamera camera(sf::Vector3f(0,4,0),sf::Vector3f(0,4,1));
 
     //variable de l'angle de rotation du modèle.
     bool rotY = false;
@@ -152,9 +151,10 @@ int main()
 
     const sf::Input& Input = App.GetInput();
 
-    Map map;
+    Map map(10,12);
 
     map.calculNormaleParFace();
+    map.calculeNormaleParPoint();
 
     // Start game loop
     while (App.IsOpened())
@@ -251,6 +251,7 @@ int main()
                 angleZ = 0;
             }
 
+            /*
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num0))
             {
                 objet3D.PlayAnimation(0,true);
@@ -268,11 +269,14 @@ int main()
                 objet3D.PlayAnimation(2,true);
                 animationName.SetText(objet3D.GetCurrentAnimationName());
             }
+            */
         }
 
         camera.handleSfmlRealtimeInput(Input);
 
         App.SetActive();
+        App.Clear(sf::Color(0, 0, 0));
+
 
         // Clear color and depth buffer
         glMatrixMode(GL_MODELVIEW);
@@ -284,19 +288,21 @@ int main()
         if(rotY)
         {
             angleY += 0.5;
-            objet3D.SetAngle(angleX,angleY,angleZ);
+            //objet3D.SetAngle(angleX,angleY,angleZ);
         }
 
         if(lignes)
         {
-            objet3D.AfficherLignes();
+            //objet3D.AfficherLignes();
         }
         else
         {
-            objet3D.Afficher();
+            //objet3D.Afficher();
         }
 
         map.Afficher();
+
+        Tools::AfficherAxes();
 
         App.Draw(menu);
         App.Draw(boutonsRotationModele);
