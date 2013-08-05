@@ -70,10 +70,7 @@
 	<File name="sources\Tools.hpp" open="1" top="0" tabpos="16">
 		<Cursor position="1190" topLine="9" />
 	</File>
-	<File name="sources\caseMap.hpp" open="1" top="1" tabpos="21">
-		<Cursor position="875" topLine="0" />
-	</File>
-	<File name="sources\main.cpp" open="1" top="0" tabpos="5">
+	<File name="sources\main.cpp" open="1" top="1" tabpos="5">
 		<Cursor position="8140" topLine="227" />
 	</File>
 </CodeBlocks_layout_file>

@@ -27,6 +27,7 @@ class CaseMap
     float get_normale_moyenne_HG();
     float get_normale_moyenne_BD();
     void set_eclairage_normale(float valeur_pour_A, float valeur_pour_B, float valeur_pour_C, float valeur_pour_D);
+    void Info();
 
     private :
     int x;

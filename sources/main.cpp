@@ -22,7 +22,7 @@ using namespace std;
 
 int main()
 {
-    //string modele3DFile = Tools::modelSelectionConsoleMenu();
+    string modele3DFile = Tools::modelSelectionConsoleMenu();
 
     //parametres liés à config.ini
     map<string, int> config = Tools::getConfig();
@@ -138,7 +138,9 @@ int main()
 
     glMatrixMode(GL_MODELVIEW);
 
+
     FlyingCamera camera(sf::Vector3f(0,4,0),sf::Vector3f(0,4,1));
+
 
     //variable de l'angle de rotation du modèle.
     bool rotY = false;

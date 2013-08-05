@@ -6,8 +6,6 @@ Map::Map(int largeur, int longueur)
     largeurX = largeur;
     longueurZ = longueur;
 
-    GLuint herbe = Tools::chargerTexture("./images/herbe.png");
-
     LIGHT = false;
     NORM = true;
 
@@ -29,7 +27,7 @@ Map::Map(int largeur, int longueur)
             else if((x == 5 && (z == 5 || z ==6)) || (x == 6 && (z == 5 || z ==6)))
             {
                 tableau_points[x][z] = 3;
-            }
+            } 
             else
             {
                 tableau_points[x][z] = 0;
