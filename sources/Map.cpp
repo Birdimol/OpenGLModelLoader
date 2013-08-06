@@ -12,7 +12,7 @@ Map::Map(string heightMapFile, int largeurCase_)
     GLuint herbe = Tools::chargerTexture("./images/herbe.png");
 
     LIGHT = false;
-    NORM = false;
+    NORM = true;
 
     largeurX = Image.GetWidth()-1;
     longueurZ = Image.GetHeight()-1;
@@ -20,7 +20,7 @@ Map::Map(string heightMapFile, int largeurCase_)
     cout << "longueurZ map : " << longueurZ << endl;
     cout << "largeurX map : " << largeurX << endl;
 
-    float altitude_max = 40;
+    float altitude_max = 10;
 
     float tableau_points[largeurX][longueurZ];
 
@@ -29,7 +29,6 @@ Map::Map(string heightMapFile, int largeurCase_)
         for(int z=0; z<=longueurZ;z++)
         {
             tableau_points[x][z] = Image.GetPixel(x,z).r*(1/255.f*altitude_max);
-            cout << tableau_points[x][z] << endl;
         }
     }
     largeurCase = largeurCase_;

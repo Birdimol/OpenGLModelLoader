@@ -13,7 +13,7 @@ FlyingCamera::FlyingCamera(sf::Vector3f position, sf::Vector3f cible) : Camera(p
     vecteurDeplacement.z = 1;
 
     vitesse_rotation = 3;
-    vitesse_deplacement = 3;
+    vitesse_deplacement = 0.1;
 
     CalculeCible();
 }

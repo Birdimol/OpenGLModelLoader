@@ -91,6 +91,7 @@ void Model::Tourne(sf::Vector3f input_angle)
 void Model::Afficher()
 {
     glPushMatrix();
+
         glTranslated(position.x,position.y,position.z);
         glRotated(angle.y,0,1,0);
         glRotated(angle.z,0,0,1);
@@ -124,7 +125,6 @@ int Model::ChargerModele(string nomFichier)
 
 
     ifstream fichier(temp.c_str());  //Ouverture d'un fichier en lecture
-
 
     if(fichier)
     {

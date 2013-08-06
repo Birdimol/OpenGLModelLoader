@@ -105,7 +105,7 @@ string Tools::modelSelectionConsoleMenu()
     cout << "  > ";
     cin >> choix;
 
-    string choix_complet = "modeles/"+choix+".obj";
+    string choix_complet = "modeles/"+choix+".fco";
 
     ifstream ifile(choix_complet.c_str());
     if(ifile)

@@ -17,7 +17,7 @@ class FlyingCamera : public Camera
     sf::Vector3f angle;
     sf::Vector3f vecteurDeplacement;
     int vitesse_rotation;
-    int vitesse_deplacement;
+    float vitesse_deplacement;
 
     public :
     FlyingCamera() : Camera(){};

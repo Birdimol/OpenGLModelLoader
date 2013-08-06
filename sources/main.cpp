@@ -129,6 +129,8 @@ int main()
     Objet3D objet3D(&lumiere,modele3DFile);
     objet3D.SetPosition(5,5,5);
 
+    objet3D.PlayAnimation(2,true);
+
     glDisable(GL_TEXTURE_2D);
 
     Clock.Reset();
@@ -309,9 +311,14 @@ int main()
         if(positionMemoire != camera.GetPosition())
         {
             camera.Monte(map.GetAltitude(camera.GetPosition().x,camera.GetPosition().z)-(camera.GetPosition().y-4));
+            objet3D.PlayAnimation(1,true);
+        }
+        else
+        {
+            objet3D.PlayAnimation(0,true);
         }
 
-        objet3D.SetAngle(sf::Vector3f(0,360-camera.getAngle().y,0));
+        objet3D.SetAngle(sf::Vector3f(0,360-camera.getAngle().y+90,0));
         objet3D.SetPosition(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z);
         camera.SetCible(sf::Vector3f(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z));
 
@@ -334,7 +341,7 @@ int main()
         if(lignes)
         {
             objet3D.AfficherLignes();
-            map.AfficherCouleur();
+            map.AfficherLigne();
         }
         else
         {

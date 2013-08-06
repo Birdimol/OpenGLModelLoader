@@ -1,0 +1,8 @@
+name=Essai
+basicAnimationName=standing
+basicAnimation=essai-stand
+basicAnimationFrameNumber=12
+animationNumber=1
+Animation1=essai
+Animation1FrameNumber=48
+Animation1Name=walk
