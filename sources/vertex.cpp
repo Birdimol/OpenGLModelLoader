@@ -115,7 +115,7 @@ Vertex::Vertex(Point3D input_A,Point3D input_B,Point3D input_C, GLuint input_tex
     else
     {
         hautGauche = true;
-        monteeX = A.GetPosition().y - C.GetPosition().y;
+        monteeX = (C.GetPosition().y - A.GetPosition().y);
         monteeZ = B.GetPosition().y - C.GetPosition().y;
     }
 
@@ -177,26 +177,6 @@ Vertex::Vertex(Point3D input_A,Point3D input_B,Point3D input_C, GLuint input_tex
     {
         angleZ = angleZ*-1;
     }
-
-    /*
-    cout << "Nouveau vertex : " << endl;
-    cout << "A : " << A.GetPosition().x << ", " << A.GetPosition().y << ", " << A.GetPosition().z << endl;
-    cout << "B : " << B.GetPosition().x << ", " << B.GetPosition().y << ", " << B.GetPosition().z << endl;
-    cout << "C : " << C.GetPosition().x << ", " << C.GetPosition().y << ", " << C.GetPosition().z << endl;
-    cout << "MonteeX : " << monteeX << endl;
-    cout << "MonteeZ : " << monteeZ << endl;
-    cout << "angleX : " << angleX << endl;
-    cout << "angleZ : " << angleZ << endl;
-
-    if(A.GetPosition().x == B.GetPosition().x)
-    {
-        cout << "altitude : " << A.GetPosition().x+0.25 << ", " << A.GetPosition().y<< "+ (" << monteeX << "*" << 0.25 <<  " - " << monteeZ << "*" << 0.75<< ")="<<A.GetPosition().y-(monteeX*0.25 + monteeZ*0.75)<< ", " <<A.GetPosition().z+0.75<< endl<< endl;
-    }
-    else
-    {
-        cout << "altitude : " << A.GetPosition().x+0.75 << ", " << A.GetPosition().y<< "+ (" << monteeX << "*" << 0.75 <<  " + " << monteeZ << "*" << 0.25<< ")="<<A.GetPosition().y+(monteeX*0.75 + monteeZ*0.25)<< ", " <<A.GetPosition().z+0.25<< endl<< endl;
-    }
-    */
 }
 
 void Vertex::set_eclairage_normale(float valeur_pour_A, float valeur_pour_B, float valeur_pour_C)
@@ -264,44 +244,28 @@ void Vertex::calcule_normale2()
 
     if((angleX*angleX) > (angleZ*angleZ))
     {
+        //si l'angle X est plus important que l'angle Z
+
+        //on s'assure que l'angle soit positif
         float temp = angleX;
-        if(temp < 0){temp = temp*-1;}
+        if(temp < 0)
+        {
+            temp = temp*-1;
+        }
+
         normaleY += 0.7-(0.7*(temp)/90);
     }
     else
     {
+        //si l'angle Z est plus important que l'angle X
         float temp = angleZ;
         if(temp < 0){temp = temp*-1;}
         normaleY += 0.7-(0.7*(temp)/90);
     }
 
-
-
     eclairage_normale_A = normaleY;
     eclairage_normale_B = normaleY;
     eclairage_normale_C = normaleY;
-
-    /*
-    cout << "normX : " << (-90+(normaleX))*90/3.1416 << endl;
-    cout << "normY : " << normaleY << endl;
-    cout << "normZ : " << (-90+(normaleZ))*90/3.1416 << endl;
-    cout << "norm : " << normaleX << ", " << normaleZ << endl;
-    cout << "lumi : " << x_lumiere << ", " << z_lumiere << endl;
-    cout << "diff : " << x_lumiere-normaleX << ", " << z_lumiere-normaleZ << endl << endl;
-    */
-    /*
-    cout << A.GetPosition().x << "," << A.GetPosition().z << " : " << B.GetPosition().x << "," << B.GetPosition().z << " : " << C.GetPosition().x << "," << C.GetPosition().z << endl;
-    cout << "diff : " << difference_x << ", " << difference_z << endl;
-    cout << "norm : " << normaleX << ", " << normaleZ << endl;
-    if(A.GetPosition().x == B.GetPosition().x)
-    {
-        cout << "vect : " << A.GetPosition().x+0.25 << "," << A.GetPosition().y+getAltitude(0.25,0.75)<< "," << A.GetPosition().z+0.75 << " -> " << A.GetPosition().x+0.25-cos(normaleX/180*3.1416) << "," << A.GetPosition().y+getAltitude(0.25,0.75)+ 1<< "," << A.GetPosition().z+0.75-cos(normaleZ/180*3.1416) << endl << endl;
-    }
-    else
-    {
-        cout << "vect : " << A.GetPosition().x+0.75 << "," << A.GetPosition().y+getAltitude(0.75,0.25)<< "," << A.GetPosition().z+0.25 << " -> " << A.GetPosition().x+0.75-cos(normaleX/180*3.1416) << "," << A.GetPosition().y+getAltitude(0.75,0.25)+ 1 << "," << A.GetPosition().z+0.25-cos(normaleZ/180*3.1416) << endl << endl;
-    }
-    */
 }
 
 void Vertex::tracer_normale()
@@ -336,7 +300,6 @@ void Vertex::tracer_normale()
     }
 }
 
-
 void Vertex::changeTexture(GLuint nouvelleTexture)
 {
     texture = nouvelleTexture;
@@ -346,7 +309,7 @@ float Vertex::getAltitude(float x, float z)
 {
     if(hautGauche)
     {
-        return A.GetPosition().y-(monteeX*x + monteeZ*z);
+        return A.GetPosition().y+(monteeX*x*-1 + monteeZ*z);
     }
     else
     {
@@ -374,12 +337,107 @@ void Vertex::afficher_bas_droite_lignes()
     glEnd();
 }
 
+void Vertex::afficher_haut_gauche_couleur()
+{
+    glBegin(GL_TRIANGLES);
+    if( *LIGHT == true)
+    {
+        glColor3f(eclairage_A,eclairage_A,eclairage_A);
+    }
+    else if(*NORM==true)
+    {
+        glColor3f((eclairage_normale_A*0.4),(eclairage_normale_A*1),(eclairage_normale_A*0.4));
+    }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+    glVertex3d(A.GetPosition().x,A.GetPosition().y,A.GetPosition().z);
+
+    if(*LIGHT == true)
+    {
+        glColor3f(eclairage_B,eclairage_B,eclairage_B);
+    }
+    else if(*NORM==true)
+    {
+        glColor3f((eclairage_normale_B*0.4),(eclairage_normale_B*1),(eclairage_normale_B*0.4));
+    }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+    glVertex3d(B.GetPosition().x,B.GetPosition().y,B.GetPosition().z);
+
+    if( *LIGHT == true)
+    {
+        glColor3f(eclairage_C,eclairage_C,eclairage_C);
+    }
+    else if(*NORM==true)
+    {
+        glColor3f((eclairage_normale_C*0.4),(eclairage_normale_C*1),(eclairage_normale_C*0.4));
+    }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+    glVertex3d(C.GetPosition().x,C.GetPosition().y,C.GetPosition().z);
+
+    glEnd();
+}
+
+void Vertex::afficher_couleur(float r, float g, float b)
+{
+    glBegin(GL_TRIANGLES);
+    if( *LIGHT == true)
+    {
+        glColor3f(eclairage_A,eclairage_A,eclairage_A);
+    }
+    else if(*NORM==true)
+    {
+        glColor3f((eclairage_normale_A*r),(eclairage_normale_A*g),(eclairage_normale_A*b));
+    }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+
+    glVertex3d(A.GetPosition().x,A.GetPosition().y,A.GetPosition().z);
+
+    if( *LIGHT == true)
+    {
+        glColor3f(eclairage_B,eclairage_B,eclairage_B);
+    }
+    else if(*NORM==true)
+    {
+        glColor3f((eclairage_normale_B*r),(eclairage_normale_B*g),(eclairage_normale_B*b));
+    }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+    glVertex3d(B.GetPosition().x,B.GetPosition().y,B.GetPosition().z);
+
+    if( *LIGHT == true)
+    {
+        glColor3f(eclairage_C,eclairage_C,eclairage_C);
+    }
+    else if(*NORM==true)
+    {
+        glColor3f((eclairage_normale_C*r),(eclairage_normale_C*g),(eclairage_normale_C*b));
+    }
+    else
+    {
+        glColor3f(1,1,1);
+    }
+    glVertex3d(C.GetPosition().x,C.GetPosition().y,C.GetPosition().z);
+    glEnd();
+}
+
 
 void Vertex::afficher_haut_gauche_texture()
 {
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_TRIANGLES);
-
 
     if( *LIGHT == true)
     {
@@ -391,15 +449,12 @@ void Vertex::afficher_haut_gauche_texture()
     }
     else
     {
-        glColor3f(1,1,1);
+        glColor3f(255,1,1);
     }
-
-
     glTexCoord2d(coord_texture_x_1,coord_texture_y_1);
     glVertex3d(A.GetPosition().x,A.GetPosition().y,A.GetPosition().z);
 
-
-    if( *LIGHT == true)
+    if(*LIGHT == true)
     {
         glColor3f(eclairage_B,eclairage_B,eclairage_B);
     }
@@ -411,7 +466,6 @@ void Vertex::afficher_haut_gauche_texture()
     {
         glColor3f(1,1,1);
     }
-
 
     glTexCoord2d(coord_texture_x_2,coord_texture_y_1);
     glVertex3d(B.GetPosition().x,B.GetPosition().y,B.GetPosition().z);
@@ -432,6 +486,16 @@ void Vertex::afficher_haut_gauche_texture()
     }
 
     glVertex3d(C.GetPosition().x,C.GetPosition().y,C.GetPosition().z);
+    glEnd();
+}
+
+void Vertex::Afficher(Materiel materiel, Lumiere *adresse_source_lumiere)
+{
+    glColor3ub(255,255,255);
+    glBegin(GL_TRIANGLES);
+    A.Afficher(materiel,adresse_source_lumiere);
+    B.Afficher(materiel,adresse_source_lumiere);
+    C.Afficher(materiel,adresse_source_lumiere);
     glEnd();
 }
 

@@ -10,6 +10,24 @@
 
 #include "vertex.hpp"
 
+
+/*
+    D____________________________C_
+    |c                         b/|
+    |                        /  c|
+    |                     /      |
+    |       VB         /         |
+  ^ |               /            |
+  X |            /               |
+    |         /         VA       |
+    |      /                     |
+    |a  /                       |
+    |/a_________________________b|
+    A                            B
+                Z >
+
+*/
+
 class CaseMap
 {
     public :
@@ -17,7 +35,9 @@ class CaseMap
     CaseMap(int x, int y, Vertex A, Vertex B);
     CaseMap(int x, int y, Vertex A, Vertex B, GLuint texture);
     void afficher();
+    void afficher(Materiel materiel, Lumiere *adresse_source_lumiere);
     void afficherBleu();
+    void afficherCouleur();
     void changeTexture(GLuint nouvelleTexture);
     float getAltitudeA(float x, float z);
     float getAltitudeB(float x, float z);

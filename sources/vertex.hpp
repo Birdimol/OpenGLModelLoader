@@ -21,6 +21,8 @@ class Vertex
     void afficher_bas_droite_lignes();
     void afficher_haut_gauche_texture();
     void afficher_bas_droite_texture();
+    void afficher_haut_gauche_couleur();
+    void afficher_couleur(float r, float g, float b);
     void changeTexture(GLuint nouvelleTexture);
     float getAltitude(float x, float z);
     void calcule_normale();
@@ -28,6 +30,7 @@ class Vertex
     void calcule_normale2();
     float get_normale_moyenne();
     void set_eclairage_normale(float valeur_pour_A, float valeur_pour_B, float valeur_pour_C);
+    void Afficher(Materiel materiel, Lumiere *adresse_source_lumiere);
 
     private :
     Point3D A;

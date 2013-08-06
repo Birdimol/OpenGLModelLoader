@@ -220,6 +220,30 @@ map<string, int> Tools::getConfig()
     return config;
 }
 
+float Tools::GetNormaleMoyenneBD(vector< CaseMap > listeCases, int numeroCase, int largeurX, int longueurZ)
+{
+    if(numeroCase < 0 || numeroCase > 1) //z=0
+    {
+        return 1;
+    }
+    else
+    {
+        return listeCases[numeroCase].get_normale_moyenne_BD();
+    }
+}
+
+float Tools::GetNormaleMoyenneHG(vector< CaseMap > listeCases, int numeroCase, int largeurX, int longueurZ)
+{
+    if(numeroCase < 3) //z=0
+    {
+        return 0;
+    }
+    else
+    {
+        return listeCases[numeroCase].get_normale_moyenne_BD();
+    }
+}
+
 void Tools::AfficherAxes()
 {
     glDisable(GL_TEXTURE_2D);
@@ -235,7 +259,7 @@ void Tools::AfficherAxes()
 
         glColor3ub(0,255,0);
         glVertex3d(0,0,0);
-        glVertex3d(0,50,0);
+        glVertex3d(0,5,0);
     glEnd();
     glLineWidth((GLfloat)1);
 
@@ -245,7 +269,7 @@ void Tools::AfficherAxes()
         glVertex3d(50,0,0);
 
         glColor3ub(0,255,0);
-        glVertex3d(0,50,0);
+        glVertex3d(0,5,0);
 
         glColor3ub(255,0,0);
         glVertex3d(0,0,50);

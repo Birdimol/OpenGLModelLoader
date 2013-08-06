@@ -10,6 +10,15 @@
 
 #include "CaseMap.hpp"
 
+/*
+
+    2 5 8
+  ^ 1 4 7
+  X 0 3 6
+    Z >
+
+*/
+
 class Map
 {
     protected :
@@ -22,10 +31,17 @@ class Map
 
 
     public :
-    Map(int largeur, int longueur);
+    Map(int largeur, int longueur,int largeurCase_);
+    Map(string heightMapFile, int largeurCase_);
     void Afficher();
+    void Afficher(Materiel materiel, Lumiere *adresse_source_lumiere);
+    float GetAltitude(float x, float z);
+    void AfficherLigne();
+    void AfficherCouleur();
     void calculNormaleParFace();
     void calculeNormaleParPoint();
+    float GetLimitX();
+    float GetLimitZ();
 };
 
 #endif

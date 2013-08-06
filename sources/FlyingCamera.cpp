@@ -4,26 +4,49 @@ using namespace std;
 
 FlyingCamera::FlyingCamera(sf::Vector3f position, sf::Vector3f cible) : Camera(position,cible)
 {
-    angle.x = cible.x - position.x;
-    angle.y = cible.y - position.y;
-    angle.z = cible.z - position.z;
+    angle.x = 0;
+    angle.y = 0;
+    angle.z = 0;
+
+    vecteurDeplacement.x = 0;
+    vecteurDeplacement.y = 0;
+    vecteurDeplacement.z = 1;
 
     vitesse_rotation = 3;
     vitesse_deplacement = 3;
+
+    CalculeCible();
 }
 
 void FlyingCamera::Avance()
 {
-    position.x += angle.x/10*vitesse_deplacement;
-    position.z += angle.z/10*vitesse_deplacement;
-    cible.x += angle.x/10*vitesse_deplacement;
-    cible.z += angle.z/10*vitesse_deplacement;
+    position.x += vecteurDeplacement.x/10*vitesse_deplacement;
+    position.z += vecteurDeplacement.z/10*vitesse_deplacement;
+    CalculeCible();
+}
+
+void FlyingCamera::AvanceX()
+{
+    position.x += vecteurDeplacement.x/10*vitesse_deplacement;
+    CalculeCible();
+}
+
+void FlyingCamera::AvanceZ()
+{
+    position.z += vecteurDeplacement.z/10*vitesse_deplacement;
+    CalculeCible();
 }
 
 void FlyingCamera::Monte()
 {
     position.y += 0.5;
     cible.y += 0.4;
+}
+
+void FlyingCamera::Monte(float distance)
+{
+    position.y += distance;
+    cible.y += distance;
 }
 
 void FlyingCamera::Descend()
@@ -34,10 +57,10 @@ void FlyingCamera::Descend()
 
 void FlyingCamera::Recule()
 {
-    position.x -= angle.x/10*vitesse_deplacement;
-    position.z -= angle.z/10*vitesse_deplacement;
-    cible.x -= angle.x/10*vitesse_deplacement;
-    cible.z -= angle.z/10*vitesse_deplacement;
+    position.x -= vecteurDeplacement.x/10*vitesse_deplacement;
+    position.z -= vecteurDeplacement.z/10*vitesse_deplacement;
+    cible.x -= vecteurDeplacement.x/10*vitesse_deplacement;
+    cible.z -= vecteurDeplacement.z/10*vitesse_deplacement;
 }
 
 void FlyingCamera::StrafeDroite()
@@ -54,12 +77,13 @@ void FlyingCamera::StrafeGauche()
     Tourne(sf::Vector3f(0,90,0));
 }
 
-void FlyingCamera::Tourne(sf::Vector3f vecteur)
+void FlyingCamera::CalculeCible()
 {
-    float angle_y_rad = 3.1416 * (vecteur.y) / 180.0;
+    //par défaut on regarde vers z+
+    float position_relative_x = 0;
+    float position_relative_z = 10;
 
-    float position_relative_x = (cible.x-position.x);
-    float position_relative_z = (cible.z-position.z);
+    float angle_y_rad = 3.1416 * (angle.y) / 180.0;
 
     float tempX = (((position_relative_x)*cos(angle_y_rad))-((position_relative_z)*sin(angle_y_rad)));
     float tempZ = (((position_relative_x)*sin(angle_y_rad))+((position_relative_z)*cos(angle_y_rad)));
@@ -67,11 +91,14 @@ void FlyingCamera::Tourne(sf::Vector3f vecteur)
     cible.x = tempX+position.x;
     cible.z = tempZ+position.z;
 
-    angle.x = cible.x - position.x;
-    angle.y = cible.y - position.y;
-    angle.z = cible.z - position.z;
+    vecteurDeplacement.x =  cible.x - position.x;
+    vecteurDeplacement.z =  cible.z - position.z;
+}
 
-//    Info();
+void FlyingCamera::Tourne(sf::Vector3f angle_)
+{
+    angle.y += angle_.y;
+    CalculeCible();
 }
 
 void FlyingCamera::SetAngle(sf::Vector3f angle_)

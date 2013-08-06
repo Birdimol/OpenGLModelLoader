@@ -127,11 +127,16 @@ void Objet3D::SetAngle(float x, float y, float z)
 
 void Objet3D::Afficher()
 {
+    glPushMatrix();
+    glTranslatef(position.x,position.y,position.z);
+
     bool animationFinished = animations[currentAnimation].Afficher(false);
     if(animationFinished)
     {
         currentAnimation = 0;
     }
+
+    glPopMatrix();
 }
 
 void Objet3D::AfficherLignes()
@@ -139,10 +144,15 @@ void Objet3D::AfficherLignes()
     //glPushMatrix();
     //glRotated(angle,0,1,0);
     //glTranslated(position.x,position.y,position.z);
+    glPushMatrix();
+    glTranslatef(position.x,position.y,position.z);
+
     bool animationFinished = animations[currentAnimation].Afficher(true);
     if(animationFinished)
     {
         currentAnimation = 0;
     }
     //glPopMatrix();
+
+    glPopMatrix();
 }

@@ -1,5 +1,4 @@
 #include "caseMap.hpp"
-
 using namespace std;
 
 CaseMap::CaseMap(int input_x, int input_y)
@@ -31,9 +30,20 @@ void CaseMap::changeTexture(GLuint nouvelleTexture)
     B.changeTexture(nouvelleTexture);
 }
 
+void CaseMap::afficherCouleur()
+{
+    A.afficher_couleur(0/255,102.0/255.0,0/255);
+    B.afficher_couleur(0/255,102.0/255.0,0/255);
+}
+
+void CaseMap::afficher(Materiel materiel, Lumiere *adresse_source_lumiere)
+{
+    A.Afficher(materiel,adresse_source_lumiere);
+    B.Afficher(materiel,adresse_source_lumiere);
+}
+
 void CaseMap::afficher()
 {
-    glEnable(GL_TEXTURE_2D);
     if(glIsEnabled(GL_TEXTURE_2D))
     {
         glColor3d(1,1,1);

@@ -22,7 +22,7 @@ using namespace std;
 
 int main()
 {
-    //string modele3DFile = Tools::modelSelectionConsoleMenu();
+    string modele3DFile = Tools::modelSelectionConsoleMenu();
 
     //parametres liés à config.ini
     map<string, int> config = Tools::getConfig();
@@ -126,7 +126,8 @@ int main()
 
     Lumiere lumiere(0,100,100,120);
 
-    //Objet3D objet3D(&lumiere,modele3DFile);
+    Objet3D objet3D(&lumiere,modele3DFile);
+    objet3D.SetPosition(5,5,5);
 
     glDisable(GL_TEXTURE_2D);
 
@@ -138,7 +139,7 @@ int main()
 
     glMatrixMode(GL_MODELVIEW);
 
-    FlyingCamera camera(sf::Vector3f(0,4,0),sf::Vector3f(0,4,1));
+    FlyingCamera camera(sf::Vector3f(1,4,5),sf::Vector3f(1,4,6));
 
     //variable de l'angle de rotation du modèle.
     bool rotY = false;
@@ -151,7 +152,8 @@ int main()
 
     const sf::Input& Input = App.GetInput();
 
-    Map map(10,12);
+    int echelle = 4;
+    Map map("map2",echelle);
 
     map.calculNormaleParFace();
     map.calculeNormaleParPoint();
@@ -239,7 +241,7 @@ int main()
                 }
                 else
                 {
-                    cout << "Affichage de couleur" << endl;
+                    cout << "Affichage normal" << endl;
                     lignes = false;
                 }
             }
@@ -272,11 +274,44 @@ int main()
             */
         }
 
+        sf::Vector3f positionMemoire = camera.GetPosition();
         camera.handleSfmlRealtimeInput(Input);
+
+        if(camera.GetPosition().x < 0)
+        {
+            camera.SetPosition(sf::Vector3f(0,camera.GetPosition().y,camera.GetPosition().z));
+            camera.CalculeCible();
+        }
+
+        if(camera.GetPosition().z < 0)
+        {
+            camera.SetPosition(sf::Vector3f(camera.GetPosition().x,camera.GetPosition().y,0));
+            camera.CalculeCible();
+        }
+
+        if(camera.GetPosition().x > map.GetLimitX())
+        {
+            camera.SetPosition(sf::Vector3f(map.GetLimitX(),camera.GetPosition().y,camera.GetPosition().z));
+            camera.CalculeCible();
+        }
+
+         if(camera.GetPosition().z > map.GetLimitZ())
+        {
+            camera.SetPosition(sf::Vector3f(camera.GetPosition().x,camera.GetPosition().y,map.GetLimitZ()));
+            camera.CalculeCible();
+        }
+
+        if(positionMemoire != camera.GetPosition())
+        {
+            camera.Monte(map.GetAltitude(camera.GetPosition().x,camera.GetPosition().z)-(camera.GetPosition().y-4));
+        }
+
+        objet3D.SetPosition(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z);
+        camera.SetCible(sf::Vector3f(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z));
+
 
         App.SetActive();
         App.Clear(sf::Color(0, 0, 0));
-
 
         // Clear color and depth buffer
         glMatrixMode(GL_MODELVIEW);
@@ -293,14 +328,14 @@ int main()
 
         if(lignes)
         {
-            //objet3D.AfficherLignes();
+            objet3D.AfficherLignes();
+            map.AfficherCouleur();
         }
         else
         {
-            //objet3D.Afficher();
+            objet3D.Afficher();
+            map.Afficher();
         }
-
-        map.Afficher();
 
         Tools::AfficherAxes();
 

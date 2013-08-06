@@ -15,6 +15,7 @@ class FlyingCamera : public Camera
 {
     protected :
     sf::Vector3f angle;
+    sf::Vector3f vecteurDeplacement;
     int vitesse_rotation;
     int vitesse_deplacement;
 
@@ -30,9 +31,13 @@ class FlyingCamera : public Camera
     void StrafeDroite();
     void StrafeGauche();
     void Avance();
+    void AvanceZ();
+    void AvanceX();
     void Recule();
     void Monte();
+    void Monte(float distance);
     void Descend();
+    void CalculeCible();
 
     void SetAngle(sf::Vector3f angle);
 
