@@ -111,24 +111,29 @@ void Objet3D::StopAnimation()
 
 void Objet3D::SetAngle(sf::Vector3f input_angle)
 {
+    angle = input_angle.y;
+    /*
     for(int a =0; a< (int)animations.size();a++)
     {
         animations[a].SetAngle(input_angle);
-    }
+    }*/
 }
 
 void Objet3D::SetAngle(float x, float y, float z)
 {
+    angle = y;
+    /*
     for(int a =0; a< (int)animations.size();a++)
     {
         animations[a].SetAngle(x,y,z);
-    }
+    }*/
 }
 
 void Objet3D::Afficher()
 {
     glPushMatrix();
     glTranslatef(position.x,position.y,position.z);
+    glRotated(angle,0,1,0);
 
     bool animationFinished = animations[currentAnimation].Afficher(false);
     if(animationFinished)
@@ -146,6 +151,7 @@ void Objet3D::AfficherLignes()
     //glTranslated(position.x,position.y,position.z);
     glPushMatrix();
     glTranslatef(position.x,position.y,position.z);
+    glRotated(angle,0,1,0);
 
     bool animationFinished = animations[currentAnimation].Afficher(true);
     if(animationFinished)

@@ -38,6 +38,7 @@ class FlyingCamera : public Camera
     void Monte(float distance);
     void Descend();
     void CalculeCible();
+    sf::Vector3f getAngle();
 
     void SetAngle(sf::Vector3f angle);
 

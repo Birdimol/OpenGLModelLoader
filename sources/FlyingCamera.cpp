@@ -59,8 +59,12 @@ void FlyingCamera::Recule()
 {
     position.x -= vecteurDeplacement.x/10*vitesse_deplacement;
     position.z -= vecteurDeplacement.z/10*vitesse_deplacement;
-    cible.x -= vecteurDeplacement.x/10*vitesse_deplacement;
-    cible.z -= vecteurDeplacement.z/10*vitesse_deplacement;
+    CalculeCible();
+}
+
+sf::Vector3f FlyingCamera::getAngle()
+{
+    return angle;
 }
 
 void FlyingCamera::StrafeDroite()

@@ -253,6 +253,11 @@ int main()
                 angleZ = 0;
             }
 
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::T))
+            {
+                objet3D.SetAngle(sf::Vector3f(0,90,0));
+            }
+
             /*
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num0))
             {
@@ -306,9 +311,9 @@ int main()
             camera.Monte(map.GetAltitude(camera.GetPosition().x,camera.GetPosition().z)-(camera.GetPosition().y-4));
         }
 
+        objet3D.SetAngle(sf::Vector3f(0,360-camera.getAngle().y,0));
         objet3D.SetPosition(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z);
         camera.SetCible(sf::Vector3f(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z));
-
 
         App.SetActive();
         App.Clear(sf::Color(0, 0, 0));
