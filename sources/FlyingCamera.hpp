@@ -42,6 +42,9 @@ class FlyingCamera : public Camera
 
     void SetAngle(sf::Vector3f angle);
 
+    void SetPosition(sf::Vector3f position);
+    void SetCible(sf::Vector3f position);
+
     void HandleSfmlEvent(sf::Event Event);
     void handleSfmlRealtimeInput(const sf::Input& Input);
 

@@ -62,7 +62,6 @@ void Animation::Play(bool loop_)
     playedFrameNumber = 0;
     clock.Reset();
     playing = true;
-    cout << "animation '" << name << "' lancee." <<endl;
 }
 
 void Animation::Play()
@@ -77,7 +76,6 @@ void Animation::Stop()
 {
     playedFrameNumber = 0;
     playing = false;
-    cout << "animation '" << name << "' finie." <<endl;
 }
 
 bool Animation::Afficher(bool showLines)
@@ -96,13 +94,11 @@ bool Animation::Afficher(bool showLines)
             if(loop)
             {
                 playedFrameNumber=0;
-                cout << "animation '" << name << "' relancee." <<endl;
             }
             else
             {
                 Stop();
                 animationFinished = true;
-                cout << "animation '" << name << "' finie." <<endl;
             }
         }
     }

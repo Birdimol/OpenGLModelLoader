@@ -15,6 +15,7 @@
 #include "Animation.hpp"
 #include "Objet3D.hpp"
 #include "Map.hpp"
+#include "Avatar.hpp"
 
 #define PI 3.14159265358979323846
 
@@ -102,11 +103,6 @@ int main()
     text.SetX(650);
     text.SetY(10);
 
-    sf::String animationName("", font, 30);
-    animationName.SetColor(sf::Color(0,0,0));
-    animationName.SetX(600);
-    animationName.SetY(100);
-
     // Create a clock for measuring time elapsed
     sf::Clock Clock;
     sf::Clock ClockAnimation;
@@ -126,10 +122,14 @@ int main()
 
     Lumiere lumiere(0,100,100,120);
 
-    Objet3D objet3D(&lumiere,modele3DFile);
-    objet3D.SetPosition(5,5,5);
+    //Objet3D objet3D(&lumiere,modele3DFile);
+    //objet3D.SetPosition(5,5,5);
 
-    objet3D.PlayAnimation(2,true);
+    Avatar avatar(5,0,5,&lumiere,modele3DFile);
+    FlyingCamera camera(sf::Vector3f(1,4,5),sf::Vector3f(1,6,6));
+    camera.SetPosition(avatar.GetCameraPosition());
+    camera.SetCible(avatar.GetPosition());
+    camera.Info();
 
     glDisable(GL_TEXTURE_2D);
 
@@ -140,8 +140,6 @@ int main()
     glColor3ub(0,0,0);
 
     glMatrixMode(GL_MODELVIEW);
-
-    FlyingCamera camera(sf::Vector3f(1,4,5),sf::Vector3f(1,4,6));
 
     //variable de l'angle de rotation du modèle.
     bool rotY = false;
@@ -257,70 +255,49 @@ int main()
 
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::T))
             {
-                objet3D.SetAngle(sf::Vector3f(0,90,0));
+                avatar.SetAngle(90);
             }
 
-            /*
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num0))
+            if((Event.Type == sf::Event::MouseWheelMoved))
             {
-                objet3D.PlayAnimation(0,true);
-                animationName.SetText(objet3D.GetCurrentAnimationName());
+                if(Event.MouseWheel.Delta > 0)
+                {
+                    avatar.ModifyCameraDistance(-1);
+                }
+                else
+                {
+                    avatar.ModifyCameraDistance(1);
+                }
             }
-
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num1))
-            {
-                objet3D.PlayAnimation(1,true);
-                animationName.SetText(objet3D.GetCurrentAnimationName());
-            }
-
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Num2))
-            {
-                objet3D.PlayAnimation(2,true);
-                animationName.SetText(objet3D.GetCurrentAnimationName());
-            }
-            */
         }
 
-        sf::Vector3f positionMemoire = camera.GetPosition();
-        camera.handleSfmlRealtimeInput(Input);
+        //sf::Vector3f positionMemoire = camera.GetPosition();
+        avatar.HandleSfmlRealtimeInput(Input);
 
-        if(camera.GetPosition().x < 0)
+        if(avatar.GetPosition().x < 0)
         {
-            camera.SetPosition(sf::Vector3f(0,camera.GetPosition().y,camera.GetPosition().z));
-            camera.CalculeCible();
+            avatar.SetPosition(sf::Vector3f(0,avatar.GetPosition().y,avatar.GetPosition().z));
         }
 
-        if(camera.GetPosition().z < 0)
+        if(avatar.GetPosition().z < 0)
         {
-            camera.SetPosition(sf::Vector3f(camera.GetPosition().x,camera.GetPosition().y,0));
-            camera.CalculeCible();
+            avatar.SetPosition(sf::Vector3f(avatar.GetPosition().x,avatar.GetPosition().y,0));
         }
 
-        if(camera.GetPosition().x > map.GetLimitX())
+        if(avatar.GetPosition().x > map.GetLimitX())
         {
-            camera.SetPosition(sf::Vector3f(map.GetLimitX(),camera.GetPosition().y,camera.GetPosition().z));
-            camera.CalculeCible();
+            avatar.SetPosition(sf::Vector3f(map.GetLimitX(),avatar.GetPosition().y,avatar.GetPosition().z));
         }
 
-         if(camera.GetPosition().z > map.GetLimitZ())
+         if(avatar.GetPosition().z > map.GetLimitZ())
         {
-            camera.SetPosition(sf::Vector3f(camera.GetPosition().x,camera.GetPosition().y,map.GetLimitZ()));
-            camera.CalculeCible();
+            avatar.SetPosition(sf::Vector3f(avatar.GetPosition().x,avatar.GetPosition().y,map.GetLimitZ()));
         }
 
-        if(positionMemoire != camera.GetPosition())
-        {
-            camera.Monte(map.GetAltitude(camera.GetPosition().x,camera.GetPosition().z)-(camera.GetPosition().y-4));
-            objet3D.PlayAnimation(1,true);
-        }
-        else
-        {
-            objet3D.PlayAnimation(0,true);
-        }
+        avatar.SetPosition(sf::Vector3f(avatar.GetPosition().x,map.GetAltitude(avatar.GetPosition().x,avatar.GetPosition().z),avatar.GetPosition().z));
 
-        objet3D.SetAngle(sf::Vector3f(0,360-camera.getAngle().y+90,0));
-        objet3D.SetPosition(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z);
-        camera.SetCible(sf::Vector3f(camera.GetCible().x, map.GetAltitude(camera.GetCible().x,camera.GetCible().z),camera.GetCible().z));
+        camera.SetPosition(avatar.GetCameraPosition());
+        camera.SetCible(avatar.GetPosition());
 
         App.SetActive();
         App.Clear(sf::Color(0, 0, 0));
@@ -332,20 +309,19 @@ int main()
 
         camera.LookAt();
 
-        if(rotY)
+        if(lightRotation)
         {
-            angleY += 0.5;
-            //objet3D.SetAngle(angleX,angleY,angleZ);
+
         }
 
         if(lignes)
         {
-            objet3D.AfficherLignes();
+            avatar.AfficherLignes();
             map.AfficherLigne();
         }
         else
         {
-            objet3D.Afficher();
+            avatar.Afficher();
             map.Afficher();
         }
 
@@ -355,7 +331,6 @@ int main()
         App.Draw(boutonsRotationModele);
         App.Draw(boutonsRotationLumiere);
         App.Draw(boutonsFilDeFer);
-        App.Draw(animationName);
         App.Draw(text);
 
         App.Display();

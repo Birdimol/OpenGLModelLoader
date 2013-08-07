@@ -105,6 +105,17 @@ void FlyingCamera::Tourne(sf::Vector3f angle_)
     CalculeCible();
 }
 
+void FlyingCamera::SetPosition(sf::Vector3f position_)
+{
+    position = position_;
+}
+
+void FlyingCamera::SetCible(sf::Vector3f position_)
+{
+    cible = position_;
+    cible.y += 6;
+}
+
 void FlyingCamera::SetAngle(sf::Vector3f angle_)
 {
     angle = angle_;
