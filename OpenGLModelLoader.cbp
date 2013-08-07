@@ -52,6 +52,8 @@
 		<Unit filename="config\config.ini" />
 		<Unit filename="sources\Animation.cpp" />
 		<Unit filename="sources\Animation.hpp" />
+		<Unit filename="sources\Avatar.cpp" />
+		<Unit filename="sources\Avatar.hpp" />
 		<Unit filename="sources\Camera.cpp" />
 		<Unit filename="sources\Camera.hpp" />
 		<Unit filename="sources\FlyingCamera.cpp" />

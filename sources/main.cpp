@@ -122,6 +122,11 @@ int main()
 
     Lumiere lumiere(0,100,100,120);
 
+    string nom;
+    nom = "colonne";
+    Objet3D colonne(&lumiere, nom, 1);
+    colonne.SetPosition(10,0,3);
+
     //Objet3D objet3D(&lumiere,modele3DFile);
     //objet3D.SetPosition(5,5,5);
 
@@ -156,7 +161,7 @@ int main()
     Map map("map2",echelle);
 
     map.calculNormaleParFace();
-    map.calculeNormaleParPoint();
+    //map.calculeNormaleParPoint();
 
     // Start game loop
     while (App.IsOpened())
@@ -318,11 +323,13 @@ int main()
         {
             avatar.AfficherLignes();
             map.AfficherLigne();
+            colonne.AfficherLignes();
         }
         else
         {
             avatar.Afficher();
             map.Afficher();
+            colonne.Afficher();
         }
 
         Tools::AfficherAxes();
