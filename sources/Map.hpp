@@ -1,5 +1,5 @@
-#ifndef DEF_MAP
-#define DEF_MAP
+#ifndef DEF_MAPDESURFACE
+#define DEF_MAPDESURFACE
 
 #include <iostream>
 #include <SFML/Window.hpp>
@@ -8,7 +8,9 @@
 #include <GL/glu.h>
 #include <string>
 
-#include "CaseMap.hpp"
+#include "Materiel.hpp"
+#include "Tools.hpp"
+#include "SurfaceDeMap.hpp"
 
 /*
 
@@ -22,24 +24,22 @@
 class Map
 {
     protected :
-    vector<CaseMap> listeCaseMaps;
-    bool LIGHT ;
-    bool NORM;
+    vector< vector< SurfaceDeMap > > listeCases;
     int largeurX;
     int longueurZ;
     int largeurCase;
-
+    Lumiere* lumiere;
 
     public :
-    Map(int largeur, int longueur,int largeurCase_);
-    Map(string heightMapFile, int largeurCase_);
+    Map(string heightMapFile, int largeurCase_, Lumiere *adresse_source_lumiere);
+
     void Afficher();
     void Afficher(Materiel materiel, Lumiere *adresse_source_lumiere);
-    float GetAltitude(float x, float z);
     void AfficherLigne();
-    void AfficherCouleur();
-    void calculNormaleParFace();
-    void calculeNormaleParPoint();
+
+    void CalculeNormaleParPoint();
+    float GetAltitude(float x, float z);
+
     float GetLimitX();
     float GetLimitZ();
 };

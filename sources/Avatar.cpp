@@ -124,11 +124,12 @@ void Avatar::HandleSfmlRealtimeInput(const sf::Input& Input)
         if(enMouvement == false)
         {
             objet3D.PlayAnimation(1,true);
+            enMouvement = true;
         }
     }
     else
     {
-        enMouvement == false;
+        enMouvement = false;
         objet3D.PlayAnimation(0, true);
     }
 }

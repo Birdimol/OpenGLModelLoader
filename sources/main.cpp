@@ -5,15 +5,10 @@
 #include <GL/glu.h>
 #include <string>
 
-#include "Point3D.hpp"
-#include "Surface.hpp"
-#include "Model.hpp"
 #include "Tools.hpp"
 #include "Lumiere.hpp"
 #include "FlyingCamera.hpp"
 #include "ModelLoaderCamera.hpp"
-#include "Animation.hpp"
-#include "Objet3D.hpp"
 #include "Map.hpp"
 #include "Avatar.hpp"
 
@@ -27,11 +22,8 @@ int main()
 
     //parametres liés à config.ini
     map<string, int> config = Tools::getConfig();
-
     sf::WindowSettings settings(24,8,config["antialiasing"]);
-
     int windowStyle;
-
     if(config["fullscreen"] == 1)
     {
         windowStyle = sf::Style::Fullscreen;
@@ -46,8 +38,6 @@ int main()
 
 
     //MENU-------------------------------------------------------
-
-
     sf::Image iBoutons;
     if (!iBoutons.LoadFromFile("images/boutons.png"))
     {
@@ -120,7 +110,7 @@ int main()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    Lumiere lumiere(0,100,100,120);
+    Lumiere lumiere(40,40,40,120);
 
     string nom;
     nom = "colonne";
@@ -151,16 +141,12 @@ int main()
     bool lignes = false;
     bool lightRotation = false;
 
-    float angleX = 0;
-    float angleY = 0;
-    float angleZ = 0;
-
     const sf::Input& Input = App.GetInput();
 
     int echelle = 4;
-    Map map("map2",echelle);
+    Map map("map2",echelle,&lumiere);
 
-    map.calculNormaleParFace();
+    //map.calculNormaleParFace();
     //map.calculeNormaleParPoint();
 
     // Start game loop
@@ -177,8 +163,15 @@ int main()
         //la lumiere tourne
         if(lightRotation)
         {
-            lumiere.x = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).x;
-            lumiere.z = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180).y;
+            //rotation autour de Y
+            sf::Vector2f temp = Tools::RotationPoint2D(lumiere.x,lumiere.z,PI/180);
+            lumiere.x = temp.x;
+            lumiere.z = temp.y;
+
+            //rotation autour de Z
+            //sf::Vector2f temp = Tools::RotationPoint2D(lumiere.x,lumiere.y,PI/180);
+            //lumiere.x = temp.x;
+            //lumiere.y = temp.y;
         }
 
         sf::Event Event;
@@ -251,16 +244,9 @@ int main()
                 }
             }
 
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::C))
+            if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::T))
             {
-                angleX = 0;
-                angleY = 0;
-                angleZ = 0;
-            }
-
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::T))
-            {
-                avatar.SetAngle(90);
+                map.CalculeNormaleParPoint();
             }
 
             if((Event.Type == sf::Event::MouseWheelMoved))
@@ -333,6 +319,7 @@ int main()
         }
 
         Tools::AfficherAxes();
+        Tools::AfficherPoint(lumiere.x, lumiere.y, lumiere.z, 255, 255 , 255);
 
         App.Draw(menu);
         App.Draw(boutonsRotationModele);

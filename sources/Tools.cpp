@@ -51,6 +51,17 @@ float Tools::DifferenceVecteurs(sf::Vector3f normale, sf::Vector3f lumiere)
     return angle;
 }
 
+sf::Vector3f Tools::GetNormaleDeDeuxVecteurs(sf::Vector3f a, sf::Vector3f b)
+{
+    sf::Vector3f resultat;
+
+    resultat.x = (a.y*b.z)-(a.z*b.y);
+    resultat.y = (a.z*b.x)-(a.x*b.z);
+    resultat.z = (a.x*b.y)-(a.y*b.x);
+
+    return resultat;
+}
+
 string Tools::RemplaceSlash(string s)
 {
     //Remplace les '/' par des espaces.
@@ -220,59 +231,46 @@ map<string, int> Tools::getConfig()
     return config;
 }
 
-float Tools::GetNormaleMoyenneBD(vector< CaseMap > listeCases, int numeroCase, int largeurX, int longueurZ)
-{
-    if(numeroCase < 0 || numeroCase > 1) //z=0
-    {
-        return 1;
-    }
-    else
-    {
-        return listeCases[numeroCase].get_normale_moyenne_BD();
-    }
-}
-
-float Tools::GetNormaleMoyenneHG(vector< CaseMap > listeCases, int numeroCase, int largeurX, int longueurZ)
-{
-    if(numeroCase < 3) //z=0
-    {
-        return 0;
-    }
-    else
-    {
-        return listeCases[numeroCase].get_normale_moyenne_BD();
-    }
-}
-
 void Tools::AfficherAxes()
 {
+    Tools::AfficherVecteur(0, 0, 0, sf::Vector3f(10,0,0), 0, 0, 255);
+    Tools::AfficherVecteur(0, 0, 0, sf::Vector3f(0,10,0), 0, 255, 0);
+    Tools::AfficherVecteur(0, 0, 0, sf::Vector3f(0,0,10), 255, 0, 0);
+}
+
+void Tools::AfficherVecteur(float x, float y, float z, sf::Vector3f vecteur, int r, int g , int b)
+{
     glDisable(GL_TEXTURE_2D);
-    glLineWidth((GLfloat)2);
-    glBegin(GL_LINES);
-        glColor3ub(0,0,255);
-        glVertex3d(0,0,0);
-        glVertex3d(50,0,0);
 
-        glColor3ub(255,0,0);
-        glVertex3d(0,0,0);
-        glVertex3d(0,0,50);
+    glPushMatrix();
+        glTranslatef(x,y,z);
 
-        glColor3ub(0,255,0);
-        glVertex3d(0,0,0);
-        glVertex3d(0,5,0);
-    glEnd();
-    glLineWidth((GLfloat)1);
+        glLineWidth((GLfloat)2);
+        glColor3ub(r,g,b);
 
+        glBegin(GL_LINES);
+            glVertex3f(0,0,0);
+            glVertex3f(vecteur.x,vecteur.y,vecteur.z);
+        glEnd();
+
+        glLineWidth((GLfloat)1);
+        glPointSize((GLfloat)10);
+
+        glBegin(GL_POINTS);
+            glVertex3f(vecteur.x,vecteur.y,vecteur.z);
+        glEnd();
+
+        glPointSize((GLfloat)1);
+    glPopMatrix();
+}
+
+void Tools::AfficherPoint(float x, float y, float z, int r, int g , int b)
+{
+    glDisable(GL_TEXTURE_2D);
     glPointSize((GLfloat)10);
+    glColor3ub(r,g,b);
     glBegin(GL_POINTS);
-        glColor3ub(0,0,255);
-        glVertex3d(50,0,0);
-
-        glColor3ub(0,255,0);
-        glVertex3d(0,5,0);
-
-        glColor3ub(255,0,0);
-        glVertex3d(0,0,50);
+        glVertex3f(x,y,z);
     glEnd();
     glPointSize((GLfloat)1);
 }

@@ -12,8 +12,6 @@
 #include <string>
 #include <sstream>
 
-#include "caseMap.hpp"
-
 using namespace std;
 
 /*!
@@ -40,8 +38,9 @@ class Tools
     static map<string, int> getConfig();
     static map<string, string> getFcoAsMap(string fcoFileName);
     static void AfficherAxes();
-    static float GetNormaleMoyenneBD(vector< CaseMap > listeCases, int numeroCase, int largeurX, int longueurZ);
-    static float GetNormaleMoyenneHG(vector< CaseMap > listeCases, int numeroCase, int largeurX, int longueurZ);
+    static void AfficherVecteur(float x, float y, float z, sf::Vector3f vecteur, int r, int g , int b);
+    static sf::Vector3f GetNormaleDeDeuxVecteurs(sf::Vector3f a, sf::Vector3f b);
+    static void AfficherPoint(float x, float y, float z, int r, int g , int b);
 };
 
 #endif

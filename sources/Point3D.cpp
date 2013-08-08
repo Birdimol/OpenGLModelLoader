@@ -78,7 +78,8 @@ void Point3D::SetNormale(float input_nx, float input_ny, float input_nz)
 
 void Point3D::AfficherLignes()
 {
-    glVertex3d(px,py,pz);
+    glColor3ub(50, 120, 210);
+    glVertex3f(px,py,pz);
 }
 
 void Point3D::Afficher()
@@ -87,7 +88,7 @@ void Point3D::Afficher()
     {
         glTexCoord2f(tx,ty);
     }
-    glVertex3d(px,py,pz);
+    glVertex3f(px,py,pz);
 }
 
 void Point3D::AfficherVecteurLumiere(Lumiere *lumiere)
@@ -133,7 +134,7 @@ void Point3D::Afficher(Materiel materiel, Lumiere *lumiere)
     {
         glTexCoord2f(tx,ty);
     }
-    glVertex3d(px,py,pz);
+    glVertex3f(px,py,pz);
 }
 
 void Point3D::Debug()

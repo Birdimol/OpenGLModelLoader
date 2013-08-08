@@ -84,9 +84,13 @@ class Surface
      */
     Materiel getMateriel();
 
-    private :
-    vector< Point3D > listePoints; /*! \brief Liste des points de la surface. */
-    Materiel materiel; /*! \brief Le materiel à appliquer à la surface. */
+    protected :
+    /*! \brief Liste des points de la surface. */
+    vector< Point3D > listePoints;
+
+    /*! \brief Le materiel à appliquer à la surface. */
+    Materiel materiel;
+
 };
 
 #endif

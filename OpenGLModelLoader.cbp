@@ -74,13 +74,11 @@
 		<Unit filename="sources\Point3D.hpp" />
 		<Unit filename="sources\Surface.cpp" />
 		<Unit filename="sources\Surface.hpp" />
+		<Unit filename="sources\SurfaceDeMap.cpp" />
+		<Unit filename="sources\SurfaceDeMap.hpp" />
 		<Unit filename="sources\Tools.cpp" />
 		<Unit filename="sources\Tools.hpp" />
-		<Unit filename="sources\caseMap.cpp" />
-		<Unit filename="sources\caseMap.hpp" />
 		<Unit filename="sources\main.cpp" />
-		<Unit filename="sources\vertex.cpp" />
-		<Unit filename="sources\vertex.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

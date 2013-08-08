@@ -1,18 +1,16 @@
 #include "Map.hpp"
-#include "Tools.hpp"
 
-Map::Map(string heightMapFile, int largeurCase_)
+Map::Map(string heightMapFile, int largeurCase_, Lumiere *adresse_source_lumiere)
 {
+    lumiere = adresse_source_lumiere;
+
     sf::Image Image;
     if (!Image.LoadFromFile("images/"+heightMapFile+".png"))
     {
         // Error...
     }
 
-    GLuint herbe = Tools::chargerTexture("./images/herbe.png");
-
-    LIGHT = false;
-    NORM = true;
+    Materiel materielHerbe(1,1,1,0,"herbe","herbe.png");
 
     largeurX = Image.GetWidth()-1;
     longueurZ = Image.GetHeight()-1;
@@ -20,7 +18,7 @@ Map::Map(string heightMapFile, int largeurCase_)
     cout << "longueurZ map : " << longueurZ << endl;
     cout << "largeurX map : " << largeurX << endl;
 
-    float altitude_max = 10;
+    float altitude_max = 40;
 
     float tableau_points[largeurX][longueurZ];
 
@@ -37,169 +35,135 @@ Map::Map(string heightMapFile, int largeurCase_)
     {
         for(int x=0;x<largeurX;x++)
         {
-            Point3D A(x*largeurCase    , tableau_points[x][z]    ,  z*largeurCase   );
-            Point3D B(x*largeurCase    , tableau_points[x][z+1]  , (z+1)*largeurCase);
-            Point3D C((x+1)*largeurCase, tableau_points[x+1][z+1], (z+1)*largeurCase);
-            Point3D D((x+1)*largeurCase, tableau_points[x+1][z]  ,  z*largeurCase   );
+            Point3D A(x*largeurCase    , tableau_points[x][z]    ,  z*largeurCase   , 0,1,0, 0,0, 1,1,1,0);
+            Point3D B(x*largeurCase    , tableau_points[x][z+1]  , (z+1)*largeurCase, 0,1,0, 0,1, 1,1,1,0);
+            Point3D C((x+1)*largeurCase, tableau_points[x+1][z+1], (z+1)*largeurCase, 0,1,0, 1,1, 1,1,1,0);
+            Point3D D((x+1)*largeurCase, tableau_points[x+1][z]  ,  z*largeurCase   , 0,1,0, 1,0, 1,1,1,0);
 
-            Vertex VA(A,B,C,herbe,0,0,1,1, &LIGHT, &NORM, false);
-            Vertex VB(A,C,D,herbe,0,0,1,1, &LIGHT, &NORM, true);
+            SurfaceDeMap VA(materielHerbe);
+            VA.AjouterPoint(A);
+            VA.AjouterPoint(B);
+            VA.AjouterPoint(C);
+            VA.CalculeMonteeEtNormale();
 
-            CaseMap caseMap(0, 0, VA, VB, herbe);
+            SurfaceDeMap VB(materielHerbe);
+            VB.AjouterPoint(A);
+            VB.AjouterPoint(C);
+            VB.AjouterPoint(D);
+            VB.CalculeMonteeEtNormale();
 
-            listeCaseMaps.push_back(caseMap);
+            vector< SurfaceDeMap > case_;
+
+            case_.push_back(VA);
+            case_.push_back(VB);
+
+            listeCases.push_back(case_);
         }
     }
 }
 
-Map::Map(int largeur, int longueur,int largeurCase_)
-{
-    largeurX = largeur;
-    longueurZ = longueur;
-
-    GLuint herbe = Tools::chargerTexture("./images/herbe.png");
-
-    LIGHT = false;
-    NORM = true;
-
-    float tableau_points[largeur+1][longueur+1];
-
-    unsigned int Seed = 10;
-    sf::Randomizer::SetSeed(Seed);
-
-    //1 point de largeur et longueur en plus qu'il n'y a de cases, d'ou le <=
-    for(int x=0; x<=largeurX;x++)
-    {
-        for(int z=0; z<=longueurZ;z++)
-        {
-            //on reste plat sur les bords
-            if(x == 0 || z == 0 || x == largeurX || z == longueurZ)
-            {
-                tableau_points[x][z] = 0;
-            }
-            else if(x >= 4 && x <= 7 && z <= 6)
-            {
-                tableau_points[x][z] = 3;
-            }
-            else
-            {
-                tableau_points[x][z] = 0;
-            }
-            cout << tableau_points[x][z] << ",";
-        }
-        cout << endl;
-    }
-    largeurCase = largeurCase_;
-
-    for(int z=0;z<longueurZ;z++)
-    {
-        for(int x=0;x<largeurX;x++)
-        {
-            Point3D A(x*largeurCase    , tableau_points[x][z]    ,  z*largeurCase   );
-            Point3D B(x*largeurCase    , tableau_points[x][z+1]  , (z+1)*largeurCase);
-            Point3D C((x+1)*largeurCase, tableau_points[x+1][z+1], (z+1)*largeurCase);
-            Point3D D((x+1)*largeurCase, tableau_points[x+1][z]  ,  z*largeurCase   );
-
-            Vertex VA(A,B,C,herbe,0,0,1,1, &LIGHT, &NORM, false);
-            Vertex VB(A,C,D,herbe,0,0,1,1, &LIGHT, &NORM, true);
-
-            CaseMap caseMap(0, 0, VA, VB, herbe);
-
-            listeCaseMaps.push_back(caseMap);
-        }
-    }
-}
-
-void Map::calculNormaleParFace()
+void Map::CalculeNormaleParPoint()
 {
     for(int x=0; x<largeurX;x++)
     {
         for(int z=0; z<longueurZ;z++)
         {
-            listeCaseMaps[z*largeurX+x].calcule_normale2();
-        }
-    }
-}
-
-void Map::calculeNormaleParPoint()
-{
-    for(int x=0; x<largeurX;x++)
-    {
-        for(int z=0; z<longueurZ;z++)
-        {
-            float A;
+            //On commence par le point A de cette case
+            sf::Vector3f normaleCalculee(0,0,0);
             if(z == 0 || x == 0)
             {
-                A = 1;
-
+                //si ce point est au bord de la map, on ne calcule pas, la normale est verticale par défaut.
+                normaleCalculee.y=1;
             }
             else
             {
-                A =   (
-                        listeCaseMaps[(z-1)*largeurX + x-1].get_normale_moyenne_BD() +
-                        listeCaseMaps[(z-1)*largeurX + x-1].get_normale_moyenne_HG() +
-                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_BD() +
-                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_HG() +
-                        listeCaseMaps[(z-1)*largeurX + x].get_normale_moyenne_BD() +
-                        listeCaseMaps[z*largeurX + x-1].get_normale_moyenne_HG()
-                        )/6.0;
+                normaleCalculee += listeCases[(z-1)*largeurX + x-1][1].GetNormale();
+                normaleCalculee += listeCases[(z-1)*largeurX + x-1][0].GetNormale();
+                normaleCalculee += listeCases[z*largeurX + x][1].GetNormale();
+                normaleCalculee += listeCases[z*largeurX + x][0].GetNormale();
+                normaleCalculee += listeCases[(z-1)*largeurX + x][1].GetNormale();
+                normaleCalculee += listeCases[z*largeurX + x-1][0].GetNormale();
+
+                normaleCalculee.x /= 6;
+                normaleCalculee.y /= 6;
+                normaleCalculee.z /= 6;
             }
-            float B;
+
+            listeCases[z*largeurX+x][0].SetNormale(0,normaleCalculee);
+            listeCases[z*largeurX+x][1].SetNormale(0,normaleCalculee);
+
+            normaleCalculee.x = 0;
+            normaleCalculee.y = 0;
+            normaleCalculee.z = 0;
 
             if(x == 0 || z == longueurZ-1)
             {
-                B = 1;
-                //cout << z << endl;
+                 normaleCalculee.y=1;
             }
             else
             {
-                B = (
-                        listeCaseMaps[z*largeurX + x-1].get_normale_moyenne_BD() +
-                        listeCaseMaps[z*largeurX + x-1].get_normale_moyenne_HG() +
-                        listeCaseMaps[(z+1)*largeurX + x].get_normale_moyenne_HG() +
-                        listeCaseMaps[(z+1)*largeurX + x].get_normale_moyenne_BD() +
-                        listeCaseMaps[(z)*largeurX + x].get_normale_moyenne_BD() +
-                        listeCaseMaps[(z+1)*largeurX + x-1].get_normale_moyenne_HG()
-                        )/6.0;
+                normaleCalculee += listeCases[z*largeurX + x-1][1].GetNormale();
+                normaleCalculee += listeCases[z*largeurX + x-1][0].GetNormale();
+                normaleCalculee += listeCases[(z+1)*largeurX + x][0].GetNormale();
+                normaleCalculee += listeCases[(z+1)*largeurX + x][1].GetNormale();
+                normaleCalculee += listeCases[(z)*largeurX + x][1].GetNormale();
+                normaleCalculee += listeCases[(z+1)*largeurX + x-1][0].GetNormale();
+
+                normaleCalculee.x /= 6;
+                normaleCalculee.y /= 6;
+                normaleCalculee.z /= 6;
             }
 
-            float C;
+            listeCases[z*largeurX+x][0].SetNormale(1,normaleCalculee);
+
+            normaleCalculee.x = 0;
+            normaleCalculee.y = 0;
+            normaleCalculee.z = 0;
+
             if(x == largeurX-1 ||  z == longueurZ-1)
             {
-                C = 1;
+                normaleCalculee.y=1;
             }
             else
             {
-                C =     (
-                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_BD() +
-                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_HG() +
-                        listeCaseMaps[(z+1)*largeurX + x+1].get_normale_moyenne_BD() +
-                        listeCaseMaps[(z+1)*largeurX + x+1].get_normale_moyenne_HG() +
-                        listeCaseMaps[(z+1)*largeurX + x].get_normale_moyenne_HG() +
-                        listeCaseMaps[z*largeurX + x+1].get_normale_moyenne_BD()
-                        )/6.0;
+                normaleCalculee += listeCases[z*largeurX + x][1].GetNormale();
+                normaleCalculee += listeCases[z*largeurX + x][0].GetNormale();
+                normaleCalculee += listeCases[(z+1)*largeurX + x+1][1].GetNormale();
+                normaleCalculee += listeCases[(z+1)*largeurX + x+1][0].GetNormale();
+                normaleCalculee += listeCases[(z+1)*largeurX + x][0].GetNormale();
+                normaleCalculee += listeCases[z*largeurX + x+1][1].GetNormale();
+
+                normaleCalculee.x /= 6;
+                normaleCalculee.y /= 6;
+                normaleCalculee.z /= 6;
             }
 
+            listeCases[z*largeurX+x][0].SetNormale(2,normaleCalculee);
+            listeCases[z*largeurX+x][1].SetNormale(1,normaleCalculee);
 
-            float D;
+            normaleCalculee.x = 0;
+            normaleCalculee.y = 0;
+            normaleCalculee.z = 0;
 
             if(x == largeurX-1 ||  z == 0)
             {
-                D = 1;
+                normaleCalculee.y=1;
             }
             else
             {
-                D =     (
-                        listeCaseMaps[(z)*largeurX +x+1].get_normale_moyenne_BD() +
-                        listeCaseMaps[(z)*largeurX +x+1].get_normale_moyenne_HG() +
-                        listeCaseMaps[(z-1)*largeurX + x].get_normale_moyenne_HG() +
-                        listeCaseMaps[(z-1)*largeurX + x].get_normale_moyenne_BD() +
-                        listeCaseMaps[(z-1)*largeurX + x+1].get_normale_moyenne_BD() +
-                        listeCaseMaps[z*largeurX + x].get_normale_moyenne_HG()
-                        )/6.0;
+                normaleCalculee += listeCases[(z)*largeurX +x+1][1].GetNormale();
+                normaleCalculee += listeCases[(z)*largeurX +x+1][0].GetNormale();
+                normaleCalculee += listeCases[(z-1)*largeurX + x][0].GetNormale();
+                normaleCalculee += listeCases[(z-1)*largeurX + x][1].GetNormale();
+                normaleCalculee += listeCases[(z-1)*largeurX + x+1][1].GetNormale();
+                normaleCalculee += listeCases[z*largeurX + x][0].GetNormale();
             }
 
-            listeCaseMaps[z*largeurX + x].set_eclairage_normale(A,B,C,D);
+            listeCases[z*largeurX+x][1].SetNormale(2,normaleCalculee);
+
+            normaleCalculee.x = 0;
+            normaleCalculee.y = 0;
+            normaleCalculee.z = 0;
         }
     }
 }
@@ -216,18 +180,11 @@ float Map::GetLimitZ()
 
 void Map::Afficher()
 {
-    for(int a=0; a<(int)listeCaseMaps.size(); a++)
+    for(int a=0; a<(int)listeCases.size(); a++)
     {
         glEnable(GL_TEXTURE_2D);
-        listeCaseMaps[a].afficher();
-    }
-}
-
-void Map::Afficher(Materiel materiel, Lumiere *adresse_source_lumiere)
-{
-    for(int a=0; a<(int)listeCaseMaps.size(); a++)
-    {
-        listeCaseMaps[a].afficher(materiel, adresse_source_lumiere);
+        listeCases[a][0].Afficher(lumiere);
+        listeCases[a][1].Afficher(lumiere);
     }
 }
 
@@ -239,31 +196,23 @@ float Map::GetAltitude(float x, float z)
     float coordonneeXRelative = (x - coordonneeX*largeurCase)/largeurCase;
     float coordonneeZRelative = (z - coordonneeZ*largeurCase)/largeurCase;
 
-    if(coordonneeZRelative > coordonneeXRelative)
+    if(coordonneeXRelative > coordonneeZRelative)
     {
-        return listeCaseMaps[coordonneeZ*largeurX + coordonneeX].getAltitudeA(coordonneeXRelative,coordonneeZRelative);
+        return listeCases[coordonneeZ*largeurX + coordonneeX][1].GetAltitude(coordonneeXRelative,coordonneeZRelative);
     }
     else
     {
-        return listeCaseMaps[coordonneeZ*largeurX + coordonneeX].getAltitudeB(coordonneeXRelative,coordonneeZRelative);
-    }
-}
-
-void Map::AfficherCouleur()
-{
-    for(int a=0; a<(int)listeCaseMaps.size(); a++)
-    {
-        glDisable(GL_TEXTURE_2D);
-        listeCaseMaps[a].afficherCouleur();
+        return listeCases[coordonneeZ*largeurX + coordonneeX][0].GetAltitude(coordonneeXRelative,coordonneeZRelative);
     }
 }
 
 void Map::AfficherLigne()
 {
-    for(int a=0; a<(int)listeCaseMaps.size(); a++)
+    for(int a=0; a<(int)listeCases.size(); a++)
     {
         glDisable(GL_TEXTURE_2D);
-        listeCaseMaps[a].afficher();
+        listeCases[a][0].AfficherLignes();
+        listeCases[a][1].AfficherLignes();
         glEnable(GL_TEXTURE_2D);
     }
 }
